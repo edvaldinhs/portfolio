@@ -18,10 +18,22 @@
             <ul>
                 <li><a href="#about">About</a></li>
                 <li><a href="#portfolio">Portfolio</a></li>
-                <!-- <li><a href="files/EdvaldoHenriqueCV.pdf" download="EdvaldoHenriqueCV.pdf">Curriculum Vitae</a></li> -->
+                <li><a href="#" id="resumeLink">Resume</a></li>
             </ul>
         </nav>
     </header>
+    <li><a href="#" id="resumeLink">Resume</a></li>
+    <div id="resumePopup" class="popup">
+        <div class="popup-content">
+            <span class="popup-close" id="closePopup">&times;</span>
+            <h2>Select Resume Language</h2>
+            <div class="button-container">
+                <button class="language-btn" id="ptButton">PT</button>
+                <button class="language-btn" id="enButton">EN</button>
+            </div>
+        </div>
+    </div>
+
     <div class="bode">
         <div class="ini">
             <div class="social">
@@ -99,7 +111,8 @@
         <img class="lazy fade-in" alt="MySQL"
             data-src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" draggable="false" />
         <img class="lazy fade-in" alt="Gradle"
-            data-src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/gradle/gradle-original.svg" draggable="false" />
+            data-src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/gradle/gradle-original.svg"
+            draggable="false" />
     </div>
     <div class="bode2">
         <div class="container" id="portfolio">
@@ -113,9 +126,10 @@
                         <div class="i-status on-hold">on hold</div>
                         <div class="i-description">
                             <div style="display: flex;">
-                            <h4>iStudy</h4><a href="https://github.com/edvaldinhs/iStudy" target="_blank">View</a>
+                                <h4>iStudy</h4><a href="https://github.com/edvaldinhs/iStudy" target="_blank">View</a>
                             </div>
-                            <p>A gamified mobile application for learning brazilian portuguese language and mathematics in the context of ProITEC</p>
+                            <p>A gamified mobile application for learning brazilian portuguese language and mathematics
+                                in the context of ProITEC</p>
                             <div class="tags">
                                 <span class="tag" style="background-color: #A4C439;">android</span>
                                 <span class="tag" style="background-color: #EA2D2E;">java</span>
@@ -134,7 +148,8 @@
                         <div class="i-status in-development">development</div>
                         <div class="i-description">
                             <div style="display: flex;">
-                            <h4>Eddig</h4><a href="https://github.com/edvaldinhs/eddig-django" target="_blank">View</a>
+                                <h4>Eddig</h4><a href="https://github.com/edvaldinhs/eddig-django"
+                                    target="_blank">View</a>
                             </div>
                             <p>Memory game</p>
                             <div class="tags">
@@ -154,7 +169,7 @@
                         <div class="i-status on-hold">on hold</div>
                         <div class="i-description">
                             <div style="display: flex;">
-                            <h4>Turtomo</h4><a href="https://github.com/edvaldinhs/TurTomo" target="_blank">View</a>
+                                <h4>Turtomo</h4><a href="https://github.com/edvaldinhs/TurTomo" target="_blank">View</a>
                             </div>
                             <p>A mobile application for the organization of objects based on local</p>
                             <div class="tags">
@@ -172,7 +187,7 @@
                         <div class="i-status is-completed">completed</div>
                         <div class="i-description">
                             <div style="display: flex;">
-                            <h4>Informatic Technician</h4>
+                                <h4>Informatic Technician</h4>
                             </div>
                             <p>Informatic Technician formation at IFRN - Campus Santa Cruz</p>
                             <div class="tags">
@@ -193,7 +208,7 @@
                         <div class="i-status is-active">active</div>
                         <div class="i-description">
                             <div style="display: flex;">
-                            <h4>...Studying</h4>
+                                <h4>...Studying</h4>
                             </div>
                             <p>Currently studying Computer Science at UFRN</p>
                             <div class="tags">

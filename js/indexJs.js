@@ -108,5 +108,36 @@ items.forEach(item => {
     });
 });
 
+const popup = document.getElementById('resumePopup');
+const resumeLink = document.getElementById('resumeLink');
+const closePopup = document.getElementById('closePopup');
+const ptButton = document.getElementById('ptButton');
+const enButton = document.getElementById('enButton');
+
+resumeLink.addEventListener('click', function(event) {
+  event.preventDefault();
+  popup.style.display = 'flex';
+});
+
+closePopup.addEventListener('click', function() {
+  popup.style.display = 'none';
+});
+
+window.addEventListener('click', function(event) {
+  if (event.target === popup) {
+    popup.style.display = 'none';
+  }
+});
+
+ptButton.addEventListener('click', function() {
+  window.location.href = 'files/CvPT.pdf';
+  popup.style.display = 'none';
+});
+
+enButton.addEventListener('click', function() {
+  window.location.href = 'files/CvEN.pdf';
+  popup.style.display = 'none';
+});
+
 
 });
