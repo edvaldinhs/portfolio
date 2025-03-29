@@ -130,14 +130,13 @@ window.addEventListener('click', function(event) {
 });
 
 ptButton.addEventListener('click', function() {
-  window.location.href = 'files/CvPT.pdf';
+  window.open('files/CvPT.pdf', '_blank');
   popup.style.display = 'none';
 });
 
 enButton.addEventListener('click', function() {
-  window.location.href = 'files/CvEN.pdf';
+  window.open('files/CvEN.pdf', '_blank');
   popup.style.display = 'none';
 });
-
 
 });
