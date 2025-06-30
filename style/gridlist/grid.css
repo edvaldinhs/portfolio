@@ -1,0 +1,94 @@
+.skills {
+  min-height: 100vh;
+  width: 100%;
+}
+
+.filter-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.filter-buttons button {
+  padding: 0.75rem 1.5rem;
+  background: black;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.filter-buttons button:hover {
+  background-color: #333;
+}
+
+.filter-buttons button.active {
+  background: #555;
+  color: #fff;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  max-width: 1000px;
+  margin: 0 auto;
+  gap: 2rem;
+}
+
+.card {
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  text-align: center;
+}
+
+.card img {
+  width: 80px;
+  height: 80px;
+  transition: transform 0.3s ease-in-out;
+  border-radius: 25%;
+}
+
+.card img:hover {
+  transform: scale(1.05);
+}
+
+.card span {
+  display: block;
+  margin-top: 1rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.hidden {
+  display: none;
+}
+
+.skills-title {
+  margin: 8rem 0 4rem 0;
+  text-align: center;
+}
+.skills-title h1 {
+  font-size: 3.5rem;
+  font-weight: 600;
+  letter-spacing: 0.1rem;
+  margin: 2rem 0;
+  margin-top: 0;
+  line-height: 1.2;
+  text-shadow: 0 0 10px rgba(128, 128, 128, 0.418);
+}
+.skills-title h2 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: 0.1rem;
+  margin: 2rem 0;
+  margin-top: 0;
+  line-height: 1.2;
+  text-shadow: 0 0 10px rgba(128, 128, 128, 0.418);
+  color: #a7a7a7;
+}/*# sourceMappingURL=grid.css.map */
