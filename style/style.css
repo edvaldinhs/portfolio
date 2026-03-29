@@ -414,6 +414,16 @@ main {
   #gecco .right-card {
     order: 2;
   }
+  #yde {
+    display: flex;
+    flex-direction: column;
+  }
+  #yde .left-card {
+    order: 1;
+  }
+  #yde .right-card {
+    order: 2;
+  }
   .ydde {
     order: 1;
     overflow: hidden;
