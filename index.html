@@ -70,9 +70,14 @@
                         </a>
                     </div>
             </div>
-            <spline-viewer data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="300"
-                data-aos-offset="0" data-aos-duration="500" class="ydde"
-                url="https://prod.spline.design/AyXkIRP2d4sHG40S/scene.splinecode"></spline-viewer>
+            <div id="canvas-container" 
+     class="ydde" 
+     data-aos="fade-zoom-in" 
+     data-aos-easing="ease-in-back" 
+     data-aos-delay="300"
+     data-aos-offset="0" 
+     data-aos-duration="500">
+     </div>
         </main>
 
         <div class="projects">
@@ -644,12 +649,21 @@
     </div>
     <script src="js/hyperlink.js"></script>
     <script src="js/grid.js"></script>
-    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.10.16/build/spline-viewer.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="js/lazyImage.js"></script>
     <script>
         AOS.init();
     </script>
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
+
+    <script type="module" src="js/threed.js"></script>
 </body>
 
 </html>
