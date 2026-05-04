@@ -1,6 +1,6 @@
 <p id="title" align="center">
   <a href="#title">
-    <img width="240" src="img/edd.gif">
+    <img width="200" src="img/edd.gif">
     <h1 align="center">Portfolio</h1>
   </a>
 </p>
