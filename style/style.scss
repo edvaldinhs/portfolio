@@ -1,3 +1,42 @@
+:root, [data-theme="dark"] {
+    --bg-color: #050505;
+    --text-color: #e7e7e7;
+    --cursor-color: white;
+    --accent-color: #a7a7a7;
+    --button-color: #2a2a2a;    
+    --button-background-color: #1a1a1a;
+    --button-content-color: lightgray;
+    --button-content-hover-color: gray;
+    --button-document: #5300a0;
+    --box-shadow: rgba(255, 255, 255, 0.5);
+}
+
+[data-theme="light"] {
+    --bg-color: #f5f5f5;
+    --text-color: #1a1a1a;
+    --cursor-color: #ff0001;
+    --accent-color: #555555;
+    --button-color: #d6d6d6;
+    --button-background-color: #f3f3f3;
+    --button-content-color: #404040;
+    --button-content-hover-color: gray;
+    --button-document: #5300a0;
+    --box-shadow: rgba(5, 5, 5, 0.5);
+}
+
+[data-theme="pink"] {
+    --bg-color: #f5f5f5;
+    --text-color: #EF92A3;
+    --cursor-color: #CB2058;
+    --accent-color: #503137;
+    --button-color: #d6d6d6;
+    --button-background-color: #f3f3f3;
+    --button-content-color: #3c262a;
+    --button-content-hover-color: #EF92A3;
+    --button-document: #D84498;
+    --box-shadow: rgba(5, 5, 5, 0.5);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -5,7 +44,7 @@
 }
 
 .icon{
-    color: black;
+    color: var(--bg-color);
 }
 
 .dpflex {
@@ -29,10 +68,81 @@
 
 body {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    background-color: black;
-    color: #e7e7e7;
+    background-color: var(--bg-color);
+    color: var(--text-color);
     min-height: 100vh;
     line-height: 1.5;
+    transition: background-color 0.4s ease-in-out, color 0.4s ease-in-out;
+    cursor: none;
+}
+
+a, button {
+    cursor: none;
+}
+#custom-cursor {
+    position: fixed;
+    top: 0; 
+    left: 0;
+    width: 18px; 
+    height: 18px;
+    background-color: var(--cursor-color);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s, background-color 0.4s ease-in-out;
+    mix-blend-mode: difference;
+    will-change: transform, width, height;
+}
+
+body.hovering-link #custom-cursor {
+    width: 36px;
+    height: 36px;
+    mix-blend-mode: difference;
+}
+
+[data-theme="red"] #custom-cursor {
+  mix-blend-mode: normal;
+}
+
+.theme-switcher {
+    position: fixed;
+    top: 2.5rem;
+    right: 1.5rem;
+    z-index: 9999;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.theme-switcher .theme-btn {
+    width: 1.2rem;
+    height: 1.2rem;
+    border-radius: 50%;
+    transition: transform 0.2s ease-out;
+    border: none;
+}
+
+.theme-switcher .theme-btn:hover {
+    transform: scale(1.2);
+}
+
+.theme-switcher .theme-btn.dark {
+    background-color: #050505;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+}
+
+.theme-switcher .theme-btn.light {
+    background-color: #f5f5f5;
+    box-shadow: inset 0 0 0 1px rgba(5, 5, 5, 0.5);
+}
+
+.theme-switcher .theme-btn.pink {
+    background-color: #EF92A3;
+    box-shadow: inset 0 0 0 1px rgba(5, 5, 5, 0.5);
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 .image-gradient {
@@ -49,7 +159,7 @@ body {
     position: absolute;
     top: 20%;
     right: 0;
-    box-shadow: 0 0 700px 15px white;
+    box-shadow: 0 0 700px 15px var(-text-color);
     rotate: -30deg;
     z-index: -1;
 }
@@ -100,28 +210,29 @@ header {
             transition: color 0.2s ease;
             text-decoration: none;
             color: inherit;
-            z-index: 999;
+            z-index: 666;
 
             &:hover {
-                color: #a7a7a7;
+                color: var(--accent-color);
             }
         }
     }
 
     .btn-signing {
-        background-color: #a7a7a7;
-        color: black;
+        background-color: var(--accent-color);
+        color: var(--bg-color);
         padding: 0.8rem 2rem;
+        margin-right: 1rem;
         border-radius: 50px;
         border: none;
         font-size: 1rem;
         font-weight: 500;
         transition: background-color 0.2s ease;
         cursor: pointer;
-        z-index: 999;
+        z-index: 666;
 
         &:hover {
-            background: white;
+            background: var(-text-color);
         }
     }
 }
@@ -149,7 +260,7 @@ main {
 
 .btn-get-started {
     text-decoration: none;
-    border: 1px solid #2a2a2a;
+    border: 1px solid var(--button-color);
     padding: 0.7rem 1.2rem;
     font-size: 1.2rem;
     font-weight: 600;
@@ -157,7 +268,13 @@ main {
     transition: background-color 0.2s ease;
 
     &:hover {
-        background-color: #1a1a1a;
+        background-color: var(--button-background-color);
+    }
+    &:link {
+        color: var(--button-document);
+    }
+    &:visited {
+        color: var(--button-document);
     }
 }
 
@@ -165,7 +282,7 @@ main {
     position: relative;
     display: inline-block;
     text-decoration: none;
-    color: white;
+    color: var(-text-color);
     font-weight: 500;
 
     &::after {
@@ -186,6 +303,12 @@ main {
         opacity: 1;
         transform: scaleX(1);
     }
+    &:link {
+        color: var(--button-document);
+    }
+    &:visited {
+        color: var(--button-document);
+    }
 }
 
 
@@ -195,8 +318,8 @@ main {
     align-items: center;
     justify-content: center;
     text-decoration: none;
-    background-color: lightgray;
-    color: black;
+    background-color: var(--button-content-color);
+    color: var(--bg-color);
     width: 3rem;
     height: 3rem;
     border-radius: 50%;
@@ -230,7 +353,7 @@ main {
     &:hover {
         width: 10rem;
         border-radius: 50px;
-        background-color: gray;
+        background-color: var(--button-content-hover-color);
         padding: 0 1rem;
 
         .icon {
@@ -276,10 +399,10 @@ main {
     width: 10rem;
     height: 2.5rem;
     border-radius: 50px;
-    background: linear-gradient(to right, #656565, #7f42a7, #6600c5, #5300a0, #757575, #656565);
+    background: linear-gradient(to right, #656565, #7f42a7, #6600c5, var(--button-document), #757575, #656565);
     background-size: 200%;
     animation: animationGradient 2.5s linear infinite;
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 15px var(--box-shadow);
     padding: 3px;
     box-sizing: border-box;
 
@@ -290,7 +413,7 @@ main {
     .tag {
         width: 100%;
         height: 100%;
-        background-color: black;
+        background-color: var(--bg-color);
         border-radius: 50px;
         display: flex;
         align-items: center;
@@ -299,7 +422,7 @@ main {
         cursor: pointer;
 
         &:hover {
-            color: #5300a0;
+            color: var(--button-document);
         }
     }
 }

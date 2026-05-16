@@ -13,8 +13,8 @@
 
 .filter-buttons button {
   padding: 0.75rem 1.5rem;
-  background: black;
-  color: #fff;
+  background: var(--bg-color);
+  color: var(--text-color);
   border: none;
   border-radius: 25px;
   cursor: pointer;
@@ -24,11 +24,11 @@
 }
 
 .filter-buttons button:hover {
-  background-color: #333;
+  background-color: var(--button-content-color);
 }
 
 .filter-buttons button.active {
-  background: #555;
+  background: var(--button-content-hover-color);
   color: #fff;
 }
 
