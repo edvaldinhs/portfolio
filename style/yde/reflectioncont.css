@@ -1,9 +1,13 @@
 :root, [data-theme=dark] {
-  --reflection-img: url(../../img/yde.png);
+  --reflection-img-yde: url(../../img/yde.png);
 }
 
 [data-theme=light] {
-  --reflection-img: url(../../img/yde-black.png);
+  --reflection-img-yde: url(../../img/yde-black.png);
+}
+
+[data-theme=pink] {
+  --reflection-img-yde: url(../../img/yde-black.png);
 }
 
 .reflection-container-yde {
@@ -16,7 +20,7 @@
   margin: 3rem;
   height: 14rem;
   width: 20rem;
-  background: transparent var(--reflection-img);
+  background: transparent var(--reflection-img-yde);
   background-size: cover;
   background-position: center;
   transition: transform 0.1s ease-out;

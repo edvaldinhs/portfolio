@@ -16,8 +16,8 @@ const setups = [
         name: "Ydde",
         file: 'models/Ydde3.glb',
         animation: 'Play_Guitar',
-        desktop: { x: 0.4, y: -0.5, z: 0, scale: 1.5, camZ: 3.7 },
-        mobile: { x: 0.1, y: -0.65, z: 0, scale: 1.1, camZ: 3 }
+        desktop: { x: 0.4, y: -0.85, z: 0, scale: 1.7, camZ: 3.7 },
+        mobile: { x: 0.1, y: -0.65, z: 0, scale: 1.25, camZ: 3 }
     }
 ];
 

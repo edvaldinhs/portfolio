@@ -1,3 +1,8 @@
+html,
+body {
+  scroll-behavior: smooth;
+}
+
 :root, [data-theme=dark] {
   --bg-color: #050505;
   --text-color: #e7e7e7;
@@ -57,6 +62,16 @@
   gap: 10rem;
 }
 
+[data-aos=fade-up] {
+  opacity: 0 !important;
+  transform: translate3d(0, 500px, 0) !important;
+}
+
+[data-aos=fade-up].aos-animate {
+  opacity: 1 !important;
+  transform: translate3d(0, 0, 0) !important;
+}
+
 .fade-in {
   opacity: 0;
   transition: opacity 0.5s ease-in-out;
@@ -74,6 +89,33 @@ body {
   line-height: 1.5;
   transition: background-color 0.4s ease-in-out, color 0.4s ease-in-out;
   cursor: none;
+}
+
+.hero {
+  margin-top: 3rem;
+  margin-bottom: 1.5rem;
+}
+.hero .hero-logo-wrapper {
+  margin-bottom: 1.5rem;
+}
+.hero .hero-svg {
+  width: 100%;
+  height: auto;
+  fill: currentColor;
+}
+.hero .mb-sm {
+  margin-bottom: 1rem;
+}
+
+.line-divider {
+  height: 5px;
+  width: 100%;
+  background-color: currentColor;
+  margin-bottom: 2.5rem;
+  transform-origin: left;
+}
+.line-divider.thin {
+  height: 2px;
 }
 
 a, button {
@@ -142,12 +184,9 @@ body.hovering-link #custom-cursor {
   box-shadow: inset 0 0 0 1px rgba(5, 5, 5, 0.5);
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 .image-gradient {
   position: absolute;
+  margin-top: 40vh;
   top: 0;
   right: 0;
   opacity: 0.5;
@@ -483,6 +522,7 @@ main {
   width: 50vw;
   height: 100vh;
   position: absolute;
+  margin-top: 40vh;
   top: 0;
   right: 0;
   z-index: 1;
@@ -530,6 +570,18 @@ main {
   }
 }
 @media (max-width: 768px) {
+  .hero {
+    margin-top: 6rem;
+    margin-bottom: 0;
+  }
+  .theme-switcher {
+    position: fixed;
+    top: 2.5rem;
+    right: 1.5rem;
+    z-index: 9999;
+    display: flex;
+    gap: 1rem;
+  }
   header {
     display: none;
     padding: 1rem 0.1rem;
@@ -570,7 +622,7 @@ main {
   .ydde {
     height: 80vh;
     width: 100%;
-    margin-top: 2rem;
+    margin-top: -8rem;
     left: 0;
     right: 0;
   }
