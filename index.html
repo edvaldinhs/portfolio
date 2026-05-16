@@ -6,11 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="img/ico.png" />
     <link rel="stylesheet" href="style/style.css">
-    <link rel="stylesheet" href="style/ydde/reflectioncont.css">
-    <link rel="stylesheet" href="style/gecco/reflectioncont.css">
-    <link rel="stylesheet" href="style/istudy/reflectioncont.css">
-    <link rel="stylesheet" href="style/yde/reflectioncont.css">
+    <link rel="stylesheet" href="style/cards/ydde/reflectioncont.css">
+    <link rel="stylesheet" href="style/cards/gecco/reflectioncont.css">
+    <link rel="stylesheet" href="style/cards/istudy/reflectioncont.css">
+    <link rel="stylesheet" href="style/cards/yde/reflectioncont.css">
     <link rel="stylesheet" href="style/gridlist/grid.css">
+    <link rel="stylesheet" href="style/gridlist/grid.css">
+    <link rel="stylesheet" href="style/loading/loading.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/lenis@1.3.23/dist/lenis.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -21,9 +23,17 @@
 <body>
     <div id="custom-cursor"></div>
 
+    <div id="loader">
+        <div class="counter">0</div>
+        <img src="img/edd.gif" class="loader-gif" alt="Loading...">
+        <div class="bar-bg">
+            <div class="bar-fill"></div>
+        </div>
+    </div>
+
     <div class="theme-switcher">
-        <button class="theme-btn dark" data-set-theme="dark" aria-label="Dark theme"></button>
         <button class="theme-btn light" data-set-theme="light" aria-label="Light theme"></button>
+        <button class="theme-btn dark" data-set-theme="dark" aria-label="Dark theme"></button>
         <button class="theme-btn pink" data-set-theme="pink" aria-label="Pink theme"></button>
     </div>
 
@@ -31,74 +41,74 @@
     <div class="layer-blur"></div>
 
     <div class="container">
-        <header>
-            <div data-aos="fade-down" data-aos-duration="1500" class="logodiv">
+        <header class="header-bar">
+            <div class="logodiv">
                 <img src="img/ico.png" alt="Edinho">
                 <h1 class="logo"><span class="logotxt">Edvaldo Santos</span></h1>
             </div>
 
 
             <nav>
-                <a data-aos="fade-down" data-aos-duration="1500" href="#projects">Projects</a>
-                <a data-aos="fade-down" data-aos-duration="2000" href="#skills">Skills</a>
+                <a href="#projects">Projects</a>
+                <a href="#skills">Skills</a>
             </nav>
 
-            <a target="_blank" href="https://mail.google.com/mail/u/0/?view=cm&fs=1&to=edvaldohenriqueceu@gmail.com"
-                data-aos="fade-down" data-aos-duration="1500" class="btn-signing"></i>
+            <!-- <a target="_blank" href="https://mail.google.com/mail/u/0/?view=cm&fs=1&to=edvaldohenriqueceu@gmail.com"
+                class="btn-signing"></i>
                 <span class="contact"><i class="fa-regular fa-message"></i> Contact!</span>
-                </a>
+                </a> -->
         </header>
-        <section class="hero">
-                <div class="hero-logo-wrapper reveal-item">
-                    <svg class="hero-svg" viewBox="0 0 1885 374" xmlns="http://www.w3.org/2000/svg">
-                        <path data-aos="fade-up" data-aos-delay="700" data-aos-easing="ease-out" data-aos-duration="500" class="letter-e" d="M-0.000111312 368.608V4.97154H245.028V68.3593H76.882V155.007H232.422V218.395H76.882V305.22H245.739V368.608H-0.000111312Z"/>
-                        <path data-aos="fade-up" data-aos-delay="600" data-aos-easing="ease-out" data-aos-duration="400" class="letter-d" fill-rule="evenodd" d="M435.058 368.608H306.152V4.97154H436.124C472.701 4.97154 504.187 12.2514 530.584 26.811C556.981 41.2523 577.282 62.0265 591.486 89.1335C605.809 116.24 612.97 148.674 612.97 186.435C612.97 224.313 605.809 256.865 591.486 284.091C577.282 311.316 556.862 332.209 530.229 346.768C503.714 361.328 471.99 368.608 435.058 368.608ZM383.034 302.734H431.862C454.59 302.734 473.707 298.71 489.213 290.66C504.838 282.493 516.557 269.886 524.37 252.841C532.3 235.677 536.266 213.542 536.266 186.435C536.266 159.564 532.3 137.606 524.37 120.561C516.557 103.516 504.898 90.9682 489.391 82.919C473.884 74.8697 454.767 70.8451 432.04 70.8451H383.034V302.734Z"/>
-                        <path data-aos="fade-up" data-aos-delay="650" data-aos-easing="ease-out" data-aos-duration="500" class="letter-i" d="M746.804 4.97154V368.608H669.922V4.97154H746.804Z"/>
-                        <path data-aos="fade-up" data-aos-delay="700" data-aos-easing="ease-out" data-aos-duration="600" class="letter-n" d="M1114.21 4.97154V368.608H1047.81L889.604 139.737H886.941V368.608H810.058V4.97154H877.53L1034.49 233.665H1037.69V4.97154H1114.21Z"/>
-                        <path data-aos="fade-up" data-aos-delay="800" data-aos-easing="ease-out" data-aos-duration="700" class="letter-h" d="M1177.73 368.608V4.97154H1254.62V155.007H1410.69V4.97154H1487.39V368.608H1410.69V218.395H1254.62V368.608H1177.73Z"/>
-                        <path data-aos="fade-up" data-aos-delay="850" data-aos-easing="ease-out" data-aos-duration="750" class="letter-o" fill-rule="evenodd" d="M1884.94 186.79C1884.94 226.444 1877.43 260.18 1862.39 287.997C1847.48 315.814 1827.12 337.062 1801.31 351.74C1775.63 366.3 1746.74 373.58 1714.67 373.58C1682.35 373.58 1653.35 366.24 1627.66 351.562C1601.98 336.884 1581.68 315.637 1566.76 287.82C1551.85 260.002 1544.39 226.326 1544.39 186.79C1544.39 147.135 1551.85 113.4 1566.76 85.5823C1581.68 57.7651 1601.98 36.5767 1627.66 22.017C1653.35 7.33896 1682.35 -5.79357e-05 1714.67 -5.79357e-05C1746.74 -5.79357e-05 1775.63 7.33896 1801.31 22.017C1827.12 36.5767 1847.48 57.7651 1862.39 85.5823C1877.43 113.4 1884.94 147.135 1884.94 186.79ZM1807 186.79C1807 161.103 1803.15 139.441 1795.45 121.804C1787.88 104.167 1777.17 90.7907 1763.32 81.6761C1749.47 72.5615 1733.25 68.0042 1714.67 68.0042C1696.08 68.0042 1679.86 72.5615 1666.02 81.6761C1652.17 90.7907 1641.39 104.167 1633.7 121.804C1626.12 139.441 1622.34 161.103 1622.34 186.79C1622.34 212.476 1626.12 234.138 1633.7 251.776C1641.39 269.413 1652.17 282.789 1666.02 291.903C1679.86 301.018 1696.08 305.575 1714.67 305.575C1733.25 305.575 1749.47 301.018 1763.32 291.903C1777.17 282.789 1787.88 269.413 1795.45 251.776C1803.15 234.138 1807 212.476 1807 186.79Z"/>
-                    </svg>
-                </div>
+        <section class="hero" id="hero">
+            <div class="hero-logo-wrapper reveal-item">
+                <svg class="hero-svg" viewBox="0 0 1885 374" xmlns="http://www.w3.org/2000/svg">
+                    <path class="letter-e"
+                        d="M-0.000111312 368.608V4.97154H245.028V68.3593H76.882V155.007H232.422V218.395H76.882V305.22H245.739V368.608H-0.000111312Z" />
+                    <path class="letter-d" fill-rule="evenodd"
+                        d="M435.058 368.608H306.152V4.97154H436.124C472.701 4.97154 504.187 12.2514 530.584 26.811C556.981 41.2523 577.282 62.0265 591.486 89.1335C605.809 116.24 612.97 148.674 612.97 186.435C612.97 224.313 605.809 256.865 591.486 284.091C577.282 311.316 556.862 332.209 530.229 346.768C503.714 361.328 471.99 368.608 435.058 368.608ZM383.034 302.734H431.862C454.59 302.734 473.707 298.71 489.213 290.66C504.838 282.493 516.557 269.886 524.37 252.841C532.3 235.677 536.266 213.542 536.266 186.435C536.266 159.564 532.3 137.606 524.37 120.561C516.557 103.516 504.898 90.9682 489.391 82.919C473.884 74.8697 454.767 70.8451 432.04 70.8451H383.034V302.734Z" />
+                    <path class="letter-i" d="M746.804 4.97154V368.608H669.922V4.97154H746.804Z" />
+                    <path class="letter-n"
+                        d="M1114.21 4.97154V368.608H1047.81L889.604 139.737H886.941V368.608H810.058V4.97154H877.53L1034.49 233.665H1037.69V4.97154H1114.21Z" />
+                    <path class="letter-h"
+                        d="M1177.73 368.608V4.97154H1254.62V155.007H1410.69V4.97154H1487.39V368.608H1410.69V218.395H1254.62V368.608H1177.73Z" />
+                    <path class="letter-o" fill-rule="evenodd"
+                        d="M1884.94 186.79C1884.94 226.444 1877.43 260.18 1862.39 287.997C1847.48 315.814 1827.12 337.062 1801.31 351.74C1775.63 366.3 1746.74 373.58 1714.67 373.58C1682.35 373.58 1653.35 366.24 1627.66 351.562C1601.98 336.884 1581.68 315.637 1566.76 287.82C1551.85 260.002 1544.39 226.326 1544.39 186.79C1544.39 147.135 1551.85 113.4 1566.76 85.5823C1581.68 57.7651 1601.98 36.5767 1627.66 22.017C1653.35 7.33896 1682.35 -5.79357e-05 1714.67 -5.79357e-05C1746.74 -5.79357e-05 1775.63 7.33896 1801.31 22.017C1827.12 36.5767 1847.48 57.7651 1862.39 85.5823C1877.43 113.4 1884.94 147.135 1884.94 186.79ZM1807 186.79C1807 161.103 1803.15 139.441 1795.45 121.804C1787.88 104.167 1777.17 90.7907 1763.32 81.6761C1749.47 72.5615 1733.25 68.0042 1714.67 68.0042C1696.08 68.0042 1679.86 72.5615 1666.02 81.6761C1652.17 90.7907 1641.39 104.167 1633.7 121.804C1626.12 139.441 1622.34 161.103 1622.34 186.79C1622.34 212.476 1626.12 234.138 1633.7 251.776C1641.39 269.413 1652.17 282.789 1666.02 291.903C1679.86 301.018 1696.08 305.575 1714.67 305.575C1733.25 305.575 1749.47 301.018 1763.32 291.903C1777.17 282.789 1787.88 269.413 1795.45 251.776C1803.15 234.138 1807 212.476 1807 186.79Z" />
+                </svg>
+            </div>
         </section>
-            <div class="line-divider reveal-item" style="--delay: 0.1s;"></div>
+        <div class="line-divider"></div>
         <main>
             <div class="content">
-                <h5 data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="100" data-aos-offset="0"
-                    data-aos-duration="400">EDVALDO SANTOS</h5>
-                    <h1 data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="100" data-aos-offset="0"
-                        data-aos-duration="400">FULLSTACK<br>DEVELOPER</h1>
+                <h5 data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="5000" data-aos-once="true"
+                    data-aos-offset="0" data-aos-duration="400">EDVALDO SANTOS</h5>
+                <h1 data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="5000" data-aos-once="true"
+                    data-aos-offset="0" data-aos-duration="400">FULLSTACK<br>DEVELOPER</h1>
 
-                    <p data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="100" data-aos-offset="0"
-                        data-aos-duration="500" class="description">
-                        Computer Science student with a technical background in IT. Hands-on experience in development,
-                        networking, and maintenance. Passionate about back-end, algorithms, and automation, always
-                        seeking to learn and build efficient solutions.
-                    </p>
+                <p data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="5000" data-aos-once="true"
+                    data-aos-offset="0" data-aos-duration="500" class="description">
+                    Computer Science student with a technical background in IT. Hands-on experience in development,
+                    networking, and maintenance. Passionate about back-end, algorithms, and automation, always
+                    seeking to learn and build efficient solutions.
+                </p>
 
-                    <p data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="300" data-aos-offset="0"
-                        data-aos-duration="700" style="margin-top: 1rem;" class="description"><a href="#projects"
-                            class="underline-fade">View Projects</a><span class=""> or </span><a href="#"
-                            class="underline-fade">Read About Me</a></p>
-                    <div data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="300" data-aos-offset="0"
-                        data-aos-duration="800" class="buttons">
-                        <a href="https://github.com/edvaldinhs" target="_blank" class="btn-signing-main">
-                            <span class="icon"><i class="fab fa-github"></i></span>
-                            <span class="btn-text">Github</span>
-                        </a>
-                        <a href="https://www.instagram.com/eddy.justeddy/" target="_blank" class="btn-signing-main">
-                            <span class="icon"><i class="fa-brands fa-instagram"></i></span>
-                            <span class="btn-text">Dm me!</span>
-                        </a>
-                    </div>
+                <p data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="300" data-aos-offset="0"
+                    data-aos-duration="700" style="margin-top: 1rem;" class="description"><a href="#projects"
+                        class="underline-fade">View Projects</a><span class=""> or </span><a href="#"
+                        class="underline-fade">Read About Me</a></p>
+                <div data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="300" data-aos-offset="0"
+                    data-aos-duration="800" class="buttons">
+                    <a href="https://github.com/edvaldinhs" target="_blank" class="btn-signing-main">
+                        <span class="icon"><i class="fab fa-github"></i></span>
+                        <span class="btn-text">Github</span>
+                    </a>
+                    <a href="https://www.instagram.com/eddy.justeddy/" target="_blank" class="btn-signing-main">
+                        <span class="icon"><i class="fa-brands fa-instagram"></i></span>
+                        <span class="btn-text">Dm me!</span>
+                    </a>
+                </div>
             </div>
-            <div id="canvas-container" 
-     class="ydde" 
-     data-aos="fade-zoom-in" 
-     data-aos-easing="ease-in-back" 
-     data-aos-delay="300"
-     data-aos-offset="0" 
-     data-aos-duration="500">
-     </div>
+            <div id="canvas-container" data-aos-delay="5000" data-aos-once="true" class="ydde" data-aos="fade-zoom-in"
+                data-aos-easing="ease-in-back" data-aos-delay="300" data-aos-offset="0" data-aos-duration="500">
+            </div>
         </main>
 
         <div class="projects">
@@ -119,9 +129,12 @@
                         <div class="right-card">
                             <div class="card-content">
                                 <h3> Eddig - RPG Memory Game</h3>
-                                <p class="description">A project developed for the PPI discipline with the objective of improving the techniques of python, django, HTML, CSS and Javascript, feat Marcelo Júnior</p>
+                                <p class="description">A project developed for the PPI discipline with the objective of
+                                    improving the techniques of python, django, HTML, CSS and Javascript, feat Marcelo
+                                    Júnior</p>
                                 <div class="dpinline">
-                                    <a target="_blank" href="https://github.com/edvaldinhs/eddig-django" class="btn-get-started">Documentation &gt;</a>
+                                    <a target="_blank" href="https://github.com/edvaldinhs/eddig-django"
+                                        class="btn-get-started">Documentation &gt;</a>
                                 </div>
                             </div>
                         </div>
@@ -130,8 +143,10 @@
                         <div class="right-card">
                             <div class="card-content">
                                 <h3> Gecco - Generic Ecommerce</h3>
-                                <p class="description">An React generic ecommerce and api that could be used as prototype for future projects.</p>
-                                <a target="_blank" href="https://github.com/edvaldinhs/react-generic-ecommerce" class="btn-get-started">Documentation &gt;</a>
+                                <p class="description">An React generic ecommerce and api that could be used as
+                                    prototype for future projects.</p>
+                                <a target="_blank" href="https://github.com/edvaldinhs/react-generic-ecommerce"
+                                    class="btn-get-started">Documentation &gt;</a>
                             </div>
                         </div>
                         <div class="left-card">
@@ -149,9 +164,11 @@
                         <div class="right-card">
                             <div class="card-content">
                                 <h3> Istudy</h3>
-                                <p class="description">A gamified mobile application made in android studio (java) as a research project carried out at IFRN - Campus Santa Cruz</p>
+                                <p class="description">A gamified mobile application made in android studio (java) as a
+                                    research project carried out at IFRN - Campus Santa Cruz</p>
                                 <div class="dpinline">
-                                    <a target="_blank" href="https://github.com/edvaldinhs/iStudy" class="btn-get-started">Documentation &gt;</a>
+                                    <a target="_blank" href="https://github.com/edvaldinhs/iStudy"
+                                        class="btn-get-started">Documentation &gt;</a>
                                 </div>
                             </div>
                         </div>
@@ -160,8 +177,10 @@
                         <div class="right-card">
                             <div class="card-content">
                                 <h3> Yde - Programming Language</h3>
-                                <p class="description">A LLVM programming language built to understand the process of building a compiler </p>
-                                <a target="_blank" href="https://github.com/edvaldinhs/yde-language" class="btn-get-started">Documentation &gt;</a>
+                                <p class="description">A LLVM programming language built to understand the process of
+                                    building a compiler </p>
+                                <a target="_blank" href="https://github.com/edvaldinhs/yde-language"
+                                    class="btn-get-started">Documentation &gt;</a>
                             </div>
                         </div>
                         <div class="left-card">
@@ -171,93 +190,96 @@
                         </div>
                     </div>
                 </div>
-        </div>
-        <div class="skills">
-            <div class="skills-title">
-                <div class="s-set" id="skills">
-                    <h1 data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="150" data-aos-offset="0"
-                        data-aos-duration="500">Technical Skills</h1>
-                    <h2 data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="300" data-aos-offset="0"
-                        data-aos-duration="800">Technologies and frameworks I work with</h2>
+            </div>
+            <div class="skills">
+                <div class="skills-title">
+                    <div class="s-set" id="skills">
+                        <h1 data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="150"
+                            data-aos-offset="0" data-aos-duration="500">Technical Skills</h1>
+                        <h2 data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="300"
+                            data-aos-offset="0" data-aos-duration="800">Technologies and frameworks I work with</h2>
+                    </div>
                 </div>
-            </div>
-            <div class="filter-buttons">
-                <button class="active" onclick="filterItems('all')">All</button>
-                <button onclick="filterItems('programming')">Programming Languages</button>
-                <button onclick="filterItems('frontend')">Frontend</button>
-                <button onclick="filterItems('backend')">Backend</button>
-                <button onclick="filterItems('database')">Databases</button>
-                <button onclick="filterItems('tools')">Tools & Platforms</button>
-            </div>
+                <div class="filter-buttons">
+                    <button class="active" onclick="filterItems('all')">All</button>
+                    <button onclick="filterItems('programming')">Programming Languages</button>
+                    <button onclick="filterItems('frontend')">Frontend</button>
+                    <button onclick="filterItems('backend')">Backend</button>
+                    <button onclick="filterItems('database')">Databases</button>
+                    <button onclick="filterItems('tools')">Tools & Platforms</button>
+                </div>
 
-            <div class="grid">
-                <div class="lazy fade-in card programming backend"><img
-                        src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg"><span>C++</span>
+                <div class="grid">
+                    <div class="lazy fade-in card programming backend"><img
+                            src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg"><span>C++</span>
+                    </div>
+                    <div class="lazy fade-in card programming backend"><img
+                            src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg"><span>Java</span>
+                    </div>
+                    <div class="lazy fade-in card programming"><img
+                            src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"><span>JavaScript</span>
+                    </div>
+                    <div class="lazy fade-in card programming frontend"><img
+                            src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg"><span>HTML</span>
+                    </div>
+                    <div class="lazy fade-in card programming frontend"><img
+                            src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg"><span>CSS</span>
+                    </div>
+                    <div class="lazy fade-in card frontend"><img
+                            src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sass/sass-original.svg"><span>SASS</span>
+                    </div>
+                    <div class="lazy fade-in card programming backend"><img
+                            src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg"><span>Node.js</span>
+                    </div>
+                    <div class="lazy fade-in card frontend"><img
+                            src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"><span>React</span>
+                    </div>
+                    <div class="lazy fade-in card database"><img
+                            src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg"><span>PostgreSQL</span>
+                    </div>
+                    <div class="lazy fade-in card database"><img
+                            src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg"><span>MySQL</span>
+                    </div>
+                    <div class="lazy fade-in card database"><img
+                            src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg"><span>MongoDB</span>
+                    </div>
+                    <div class="lazy fade-in card database tools"><img
+                            src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/prisma/prisma-original.svg"><span>Prisma</span>
+                    </div>
+                    <div class="lazy fade-in card tools"><img
+                            src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg"><span>Git</span>
+                    </div>
+                    <div class="lazy fade-in card tools"><img
+                            src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg"><span>GitHub</span>
+                    </div>
+                    <div class="lazy fade-in card tools"><img
+                            src="https://www.vectorlogo.zone/logos/getpostman/getpostman-icon.svg"><span>Postman</span>
+                    </div>
+                    <div class="lazy fade-in card backend"><img
+                            src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg"><span>Spring
+                            Boot</span></div>
+                    <div class="lazy fade-in card tools"><img
+                            src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/androidstudio/androidstudio-original.svg"><span>Android
+                            Studio</span></div>
+                    <div class="lazy fade-in card programming backend"><img
+                            src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"><span>Python</span>
+                    </div>
+                    <div class="lazy fade-in card backend"><img
+                            src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg"
+                            style="background:white; border-radius:50%"><span>Django</span></div>
                 </div>
-                <div class="lazy fade-in card programming backend"><img
-                        src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg"><span>Java</span>
-                </div>
-                <div class="lazy fade-in card programming"><img
-                        src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"><span>JavaScript</span>
-                </div>
-                <div class="lazy fade-in card programming frontend"><img
-                        src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg"><span>HTML</span>
-                </div>
-                <div class="lazy fade-in card programming frontend"><img
-                        src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg"><span>CSS</span>
-                </div>
-                <div class="lazy fade-in card frontend"><img
-                        src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sass/sass-original.svg"><span>SASS</span>
-                </div>
-                <div class="lazy fade-in card programming backend"><img
-                        src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg"><span>Node.js</span>
-                </div>
-                <div class="lazy fade-in card frontend"><img
-                        src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"><span>React</span>
-                </div>
-                <div class="lazy fade-in card database"><img
-                        src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg"><span>PostgreSQL</span>
-                </div>
-                <div class="lazy fade-in card database"><img
-                        src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg"><span>MySQL</span>
-                </div>
-                <div class="lazy fade-in card database"><img
-                        src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg"><span>MongoDB</span>
-                </div>
-                <div class="lazy fade-in card database tools"><img
-                        src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/prisma/prisma-original.svg"><span>Prisma</span></div>
-                <div class="lazy fade-in card tools"><img
-                        src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg"><span>Git</span>
-                </div>
-                <div class="lazy fade-in card tools"><img
-                        src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg"><span>GitHub</span>
-                </div>
-                <div class="lazy fade-in card tools"><img
-                        src="https://www.vectorlogo.zone/logos/getpostman/getpostman-icon.svg"><span>Postman</span>
-                </div>
-                <div class="lazy fade-in card backend"><img
-                        src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg"><span>Spring
-                        Boot</span></div>
-                <div class="lazy fade-in card tools"><img
-                        src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/androidstudio/androidstudio-original.svg"><span>Android
-                        Studio</span></div>
-                <div class="lazy fade-in card programming backend"><img
-                        src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"><span>Python</span>
-                </div>
-                <div class="lazy fade-in card backend"><img
-                        src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg"
-                        style="background:white; border-radius:50%"><span>Django</span></div>
             </div>
         </div>
-    </div>
-    <script src="js/hyperlink.js"></script>
-    <script src="js/grid.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="js/lazyImage.js"></script>
-    <script>
-        AOS.init();
-    </script>
-    <script type="importmap">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+        <script src="js/hyperlink.js"></script>
+        <script src="js/grid.js"></script>
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        <script src="js/lazyImage.js"></script>
+        <script>
+            AOS.init();
+        </script>
+        <script type="importmap">
         {
             "imports": {
                 "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
@@ -266,10 +288,11 @@
         }
     </script>
 
-    <script type="module" src="js/threed.js"></script>
-    <script type="module" src="js/cards.js"></script>
-    <script type="module" src="js/cursor.js"></script>
-    <script src="https://unpkg.com/lenis@1.3.23/dist/lenis.min.js"></script> 
+        <script type="module" src="js/threed.js"></script>
+        <script type="module" src="js/cards.js"></script>
+        <script type="module" src="js/cursor.js"></script>
+        <script type="module" src="js/loading.js"></script>
+        <script src="https://unpkg.com/lenis@1.3.23/dist/lenis.min.js"></script>
 </body>
 
 </html>

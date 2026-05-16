@@ -8,7 +8,7 @@
   margin: 3rem;
   height: 16rem;
   width: 16rem;
-  background: transparent url(../../img/ico.png);
+  background: transparent url(../../../img/ico.png);
   background-size: cover;
   background-position: center;
   transition: transform 0.1s ease-out;

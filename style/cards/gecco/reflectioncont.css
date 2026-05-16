@@ -8,7 +8,7 @@
   margin: 3rem;
   height: 10rem;
   width: 10rem;
-  background: transparent url(../../img/geccoLogo.png);
+  background: transparent url(../../../img/geccoLogo.png);
   background-size: cover;
   background-position: center;
   transition: transform 0.1s ease-out;

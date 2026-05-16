@@ -1,13 +1,13 @@
 :root, [data-theme=dark] {
-  --reflection-img-yde: url(../../img/yde.png);
+  --reflection-img-yde: url(../../../img/yde.png);
 }
 
 [data-theme=light] {
-  --reflection-img-yde: url(../../img/yde-black.png);
+  --reflection-img-yde: url(../../../img/yde-black.png);
 }
 
 [data-theme=pink] {
-  --reflection-img-yde: url(../../img/yde-black.png);
+  --reflection-img-yde: url(../../../img/yde-black.png);
 }
 
 .reflection-container-yde {

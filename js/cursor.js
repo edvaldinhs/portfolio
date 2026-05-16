@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    
+
     const cursor = document.getElementById('custom-cursor');
     let mouseX = 0, mouseY = 0;
     let cursorX = 0, cursorY = 0;
@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (isTouchDevice) {
         cursor.style.display = 'none';
         document.body.style.cursor = 'auto';
-        
+
         document.querySelectorAll('a, button').forEach(el => {
             el.style.cursor = 'pointer';
         });
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
         function animateCursor() {
             cursorX += (mouseX - cursorX) * 0.15;
             cursorY += (mouseY - cursorY) * 0.15;
-            
+
             cursor.style.transform = `translate3d(calc(${cursorX}px - 50%), calc(${cursorY}px - 50%), 0)`;
             requestAnimationFrame(animateCursor);
         }
@@ -46,11 +46,32 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-const lenis = new Lenis();
+window.lenis = new Lenis();
 
 function raf(time) {
-  lenis.raf(time);
-  requestAnimationFrame(raf);
+    window.lenis.raf(time);
+    requestAnimationFrame(raf);
 }
 
 requestAnimationFrame(raf);
+
+function travarScrollLenis() {
+    const lenisInstance = window.lenis;
+
+    if (lenisInstance) {
+        lenisInstance.stop();
+        document.documentElement.classList.add('scroll-travado');
+        console.log("Scroll bloqueado com sucesso.");
+
+        setTimeout(() => {
+            lenisInstance.start();
+            document.documentElement.classList.remove('scroll-travado');
+            console.log("Scroll liberado.");
+        }, 3000)
+
+    } else {
+        setTimeout(travarScrollLenis, 100);
+    }
+}
+
+window.addEventListener('DOMContentLoaded', travarScrollLenis);
