@@ -18,7 +18,7 @@ body {
 }
 
 [data-theme="light"] {
-    --bg-color: #fef3eb;
+    --bg-color: #fffcfa;
     --text-color: #1a1a1a;
     --cursor-color: #ff0001;
     --accent-color: #555555;
@@ -106,7 +106,7 @@ body {
 }
 
 .hero {
-    margin-top: 3rem;
+    margin-top: 7rem;
     margin-bottom: 1.5rem;
 
     .hero-logo-wrapper {
@@ -209,7 +209,7 @@ body.hovering-link #custom-cursor {
     top: 0;
     right: 0;
     opacity: 0.5;
-    z-index: -1;
+    z-index: 4;
 }
 
 .layer-blur {
@@ -218,9 +218,9 @@ body.hovering-link #custom-cursor {
     position: absolute;
     top: 20%;
     right: 0;
-    box-shadow: 0 0 700px 15px var(-text-color);
+    box-shadow: 0 0 700px 15px var(--text-color);
     rotate: -30deg;
-    z-index: -1;
+    z-index: 5;
 }
 
 .container {
@@ -230,9 +230,18 @@ body.hovering-link #custom-cursor {
     position: relative;
     overflow: hidden;
     overflow-x: hidden;
+    background-color: var(--bg-color);
+    z-index: 3;
 }
 
 header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    pointer-events: none;
+    
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -262,6 +271,7 @@ header {
         align-items: center;
         gap: 3rem;
         margin-right: 4rem;
+        pointer-events: auto;
 
         a {
             font-size: 1rem;
@@ -291,7 +301,7 @@ header {
         z-index: 20;
 
         &:hover {
-            background: var(-text-color);
+            background: var(--text-color);
         }
     }
 }
@@ -394,7 +404,7 @@ main {
     padding: 0;
 
     .icon {
-        z-index: 1;
+        z-index: y;
         transition: margin-left 0.4s ease;
 
         i {
@@ -434,7 +444,7 @@ main {
 .content {
     max-width: 40rem;
     margin-left: 10%;
-    z-index: 2;
+    z-index: 4;
 
     h1 {
         font-size: 4rem;
@@ -580,7 +590,7 @@ main {
     margin-top: 40vh;
     top: 0;
     right: 0;
-    z-index: 1;
+    z-index: 8 !important;
     pointer-events: none;
     display: flex;
     align-items: center;
@@ -592,6 +602,8 @@ main {
     max-height: 100%;
     display: block;
 }
+
+
 
 @media(max-width: 1300px) {
     header {

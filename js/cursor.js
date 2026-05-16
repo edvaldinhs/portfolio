@@ -38,6 +38,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const themeButtons = document.querySelectorAll('.theme-btn');
     const htmlEl = document.documentElement;
 
+    const themes = ['dark', 'light', 'pink'];
+    
+    const randomTheme = themes[Math.floor(Math.random() * themes.length)];
+    
+    htmlEl.setAttribute('data-theme', randomTheme);
+
     themeButtons.forEach(btn => {
         btn.addEventListener('click', () => {
             const newTheme = btn.getAttribute('data-set-theme');
@@ -75,3 +81,13 @@ function travarScrollLenis() {
 }
 
 window.addEventListener('DOMContentLoaded', travarScrollLenis);
+
+const lenis = new Lenis()
+
+lenis.on('scroll', ScrollTrigger.update)
+
+gsap.ticker.add((time)=>{
+  lenis.raf(time * 1000)
+})
+
+gsap.ticker.lagSmoothing(0)

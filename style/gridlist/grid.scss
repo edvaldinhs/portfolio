@@ -1,6 +1,7 @@
 .skills{
     min-height: 100vh;
     width: 100%;
+    padding-bottom: 30vh;
 }
 
 .filter-buttons {
@@ -38,6 +39,7 @@
     max-width: 1000px;
     margin: 0 auto;
     gap: 2rem;
+    padding-bottom: 0.5rem;
 }
 
 .card {
@@ -70,7 +72,8 @@
 }
 
 .skills-title {
-    margin: 8rem 0 4rem 0;
+    margin: 0 0 4rem 0;
+    padding-top: 8rem;
     text-align: center;
 
     h1 {
