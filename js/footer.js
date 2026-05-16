@@ -1,8 +1,8 @@
-let mm = gsap.matchMedia();
+ScrollTrigger.config({ ignoreMobileResize: true });
 
-mm.add("(min-width: 768px)", () => {
-    const part2 = document.querySelector(".part-2");
+const part2 = document.querySelector(".part-2");
 
+if (part2) {
     const revealTl = gsap.timeline({
         scrollTrigger: {
             trigger: ".scroll-container",
@@ -10,7 +10,7 @@ mm.add("(min-width: 768px)", () => {
             end: () => `+=${part2.offsetHeight}`,
             scrub: true,
             pin: true,
-            invalidateOnRefresh: true,
+            invalidateOnRefresh: true
         }
     });
 
@@ -18,12 +18,7 @@ mm.add("(min-width: 768px)", () => {
         y: () => -part2.offsetHeight,
         ease: "none"
     });
-
-    return () => {
-        gsap.set(".part-1", { clearProps: "all" });
-    };
-});
-
+}
 window.addEventListener("load", () => {
     ScrollTrigger.refresh();
 });
