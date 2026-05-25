@@ -201,7 +201,6 @@ body.hovering-link #custom-cursor {
 
 .image-gradient {
   position: absolute;
-  margin-top: 40vh;
   top: 0;
   right: 0;
   opacity: 0.5;
@@ -221,7 +220,7 @@ body.hovering-link #custom-cursor {
 
 .container {
   width: 100%;
-  margin: 0 auto;
+  margin: 0 0;
   padding: 0 1rem;
   position: relative;
   overflow: hidden;
@@ -546,7 +545,6 @@ main {
   width: 50vw;
   height: 100vh;
   position: absolute;
-  margin-top: 40vh;
   top: 0;
   right: 0;
   z-index: 8 !important;

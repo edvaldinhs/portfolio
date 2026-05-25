@@ -10,7 +10,8 @@ if (part2) {
             end: () => `+=${part2.offsetHeight}`,
             scrub: true,
             pin: true,
-            invalidateOnRefresh: true
+            invalidateOnRefresh: true,
+            refreshPriority: -1
         }
     });
 
@@ -20,5 +21,6 @@ if (part2) {
     });
 }
 window.addEventListener("load", () => {
+    ScrollTrigger.sort();
     ScrollTrigger.refresh();
 });

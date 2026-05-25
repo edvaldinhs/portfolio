@@ -71,3 +71,17 @@ tl.to('.header-bar', {
     ease: "power4.out"
 }, "-=2");
 
+tl.fromTo('.fade-up', {
+    y: 60,
+    opacity: '0%',
+}, {
+    y:0,
+    opacity: '100%'
+}, "-=2")
+
+tl.fromTo('.fade-up-2', {
+    opacity: '0%',
+}, {
+    opacity: '100%'
+}, "-=1.5")
+

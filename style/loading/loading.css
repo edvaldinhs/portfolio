@@ -71,14 +71,4 @@
   color: var(--bg-color);
   max-width: 500px;
   line-height: 1.6;
-}
-
-[data-aos][data-aos-delay="5000"] {
-  transition-delay: 4500ms;
-}
-
-@media (max-width: 768px) {
-  [data-aos][data-aos-delay="5000"] {
-    transition-delay: 100ms;
-  }
 }/*# sourceMappingURL=loading.css.map */

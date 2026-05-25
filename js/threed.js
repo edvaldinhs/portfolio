@@ -1,6 +1,8 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
+gsap.registerPlugin(ScrollTrigger);
+
 const container = document.getElementById('canvas-container');
 const isMobile = () => window.innerWidth < 800;
 
@@ -21,16 +23,12 @@ const setups = [
     }
 ];
 
-const config = setups[Math.floor(Math.random() * setups.length)];
-let currentPos = isMobile() ? config.mobile : config.desktop;
-
 let targetRotationX = 0;
 let targetRotationY = isMobile() ? -(Math.PI / 8) : -(Math.PI / 8);
-let model = null;
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(35, container.clientWidth / container.clientHeight, 0.1, 1000);
-camera.position.set(0, 0, currentPos.camZ);
+camera.position.set(0, 0, isMobile() ? setups[0].mobile.camZ : setups[0].desktop.camZ);
 
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
 renderer.setSize(container.clientWidth, container.clientHeight);
@@ -42,26 +40,96 @@ const topLight = new THREE.DirectionalLight(0xffffff, 2);
 topLight.position.set(5, 5, 5);
 scene.add(topLight);
 
-let mixer;
-const loader = new GLTFLoader();
-loader.load(config.file, (gltf) => {
-    model = gltf.scene;
-    model.position.set(currentPos.x, currentPos.y, currentPos.z);
-    model.scale.set(currentPos.scale, currentPos.scale, currentPos.scale);
-    model.rotation.y = targetRotationY;
-    scene.add(model);
+const groupEddy = new THREE.Group();
+const groupYdde = new THREE.Group();
+scene.add(groupEddy);
+scene.add(groupYdde);
 
-    if (gltf.animations.length) {
-        mixer = new THREE.AnimationMixer(model);
-        const clip = THREE.AnimationClip.findByName(gltf.animations, config.animation);
-        mixer.clipAction(clip || gltf.animations[0]).play();
-    }
+let modelEddy = null, modelYdde = null;
+let mixerEddy, mixerYdde;
+let loadedCount = 0;
+
+const loader = new GLTFLoader();
+
+
+function loadModel(config, group, isVisibleOnStart, callback) {
+    let currentPos = isMobile() ? config.mobile : config.desktop;
+    
+    loader.load(config.file, (gltf) => {
+        const model = gltf.scene;
+        model.position.set(currentPos.x, currentPos.y, currentPos.z);
+        model.scale.set(currentPos.scale, currentPos.scale, currentPos.scale);
+        model.rotation.y = targetRotationY;
+        
+        group.add(model);
+        
+        if (!isVisibleOnStart) {
+            group.scale.set(0, 0, 0);
+        }
+
+        let mixer = null;
+        if (gltf.animations.length) {
+            mixer = new THREE.AnimationMixer(model);
+            const clip = THREE.AnimationClip.findByName(gltf.animations, config.animation);
+            mixer.clipAction(clip || gltf.animations[0]).play();
+        }
+        
+        callback(model, mixer);
+    });
+}
+
+// Load Eddy
+loadModel(setups[0], groupEddy, true, (model, mixer) => {
+    modelEddy = model;
+    mixerEddy = mixer;
+    checkLoadComplete();
 });
 
+// Load Ydde
+loadModel(setups[1], groupYdde, false, (model, mixer) => {
+    modelYdde = model;
+    mixerYdde = mixer;
+    checkLoadComplete();
+});
+
+function checkLoadComplete() {
+    loadedCount++;
+    if (loadedCount === 2) {
+        initScrollAnimation();
+    }
+}
+
+function initScrollAnimation() {
+    const tl = gsap.timeline({
+        scrollTrigger: {
+            trigger: "main",
+            start: "top top",
+            end: "+=2000",
+            scrub: 1,
+            pin: true,
+            anticipatePin: 1
+        }
+    });
+    tl.to(groupEddy.rotation, { y: Math.PI, duration: 1, ease: "power2.inOut" }, 0)
+      .to(groupEddy.scale, { x: 0, y: 0, z: 0, duration: 1, ease: "power2.inOut" }, 0)
+      
+      .to(groupYdde.scale, { x: 1, y: 1, z: 1, duration: 1, ease: "power2.inOut" }, 1)
+      .fromTo(groupYdde.rotation, 
+          { y: -Math.PI }, 
+          { y: 0, duration: 1, ease: "power2.inOut" }, 
+      1);
+
+      setTimeout(() => {
+        ScrollTrigger.refresh();
+        if (typeof AOS !== 'undefined') {
+            AOS.refresh();
+        }
+    }, 100);
+}
 
 window.addEventListener('deviceorientation', (event) => {
     if (event.gamma !== null) {
-        targetRotationY = (event.gamma * (Math.PI / 180)) * 0.5 + config.mobile.x; 
+        targetRotationY = (event.gamma * (Math.PI / 180)) * 0.5 + (isMobile() ? setups[0].mobile.x : 0); 
         targetRotationX = (event.beta * (Math.PI / 180)) * 0.2;
     }
 });
@@ -79,11 +147,17 @@ const clock = new THREE.Clock();
 function animate() {
     requestAnimationFrame(animate);
     const delta = clock.getDelta();
-    if (mixer) mixer.update(delta);
+    
+    if (mixerEddy) mixerEddy.update(delta);
+    if (mixerYdde) mixerYdde.update(delta);
 
-    if (model) {
-        model.rotation.y += (targetRotationY - model.rotation.y) * 0.05;
-        model.rotation.x += (targetRotationX - model.rotation.x) * 0.05;
+    if (modelEddy) {
+        modelEddy.rotation.y += (targetRotationY - modelEddy.rotation.y) * 0.05;
+        modelEddy.rotation.x += (targetRotationX - modelEddy.rotation.x) * 0.05;
+    }
+    if (modelYdde) {
+        modelYdde.rotation.y += (targetRotationY - modelYdde.rotation.y) * 0.05;
+        modelYdde.rotation.x += (targetRotationX - modelYdde.rotation.x) * 0.05;
     }
 
     renderer.render(scene, camera);
@@ -94,12 +168,20 @@ window.addEventListener('resize', () => {
     const width = container.clientWidth;
     const height = container.clientHeight;
     camera.aspect = width / height;
+
+    camera.position.z = isMobile() ? setups[0].mobile.camZ : setups[0].desktop.camZ;
     camera.updateProjectionMatrix();
     renderer.setSize(width, height);
     
-    currentPos = isMobile() ? config.mobile : config.desktop;
-    if (model) {
-        model.position.set(currentPos.x, currentPos.y, currentPos.z);
-        model.scale.set(currentPos.scale, currentPos.scale, currentPos.scale);
+
+    if (modelEddy) {
+        let pos = isMobile() ? setups[0].mobile : setups[0].desktop;
+        modelEddy.position.set(pos.x, pos.y, pos.z);
+        modelEddy.scale.set(pos.scale, pos.scale, pos.scale);
+    }
+    if (modelYdde) {
+        let pos = isMobile() ? setups[1].mobile : setups[1].desktop;
+        modelYdde.position.set(pos.x, pos.y, pos.z);
+        modelYdde.scale.set(pos.scale, pos.scale, pos.scale);
     }
 });
