@@ -1,28 +1,20 @@
 document.addEventListener('DOMContentLoaded', () => {
-
     const cursor = document.getElementById('custom-cursor');
-    let mouseX = 0, mouseY = 0;
-    let cursorX = 0, cursorY = 0;
-
+    let mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0;
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
     if (isTouchDevice) {
         cursor.style.display = 'none';
         document.body.style.cursor = 'auto';
-
-        document.querySelectorAll('a, button').forEach(el => {
-            el.style.cursor = 'pointer';
-        });
+        document.querySelectorAll('a, button').forEach(el => el.style.cursor = 'pointer');
     } else {
         document.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
         });
-
         function animateCursor() {
             cursorX += (mouseX - cursorX) * 0.15;
             cursorY += (mouseY - cursorY) * 0.15;
-
             cursor.style.transform = `translate3d(calc(${cursorX}px - 50%), calc(${cursorY}px - 50%), 0)`;
             requestAnimationFrame(animateCursor);
         }
@@ -37,57 +29,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const themeButtons = document.querySelectorAll('.theme-btn');
     const htmlEl = document.documentElement;
-
     const themes = ['dark', 'light', 'pink'];
-    
-    const randomTheme = themes[Math.floor(Math.random() * themes.length)];
-    
-    htmlEl.setAttribute('data-theme', randomTheme);
+    htmlEl.setAttribute('data-theme', themes[Math.floor(Math.random() * themes.length)]);
 
     themeButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const newTheme = btn.getAttribute('data-set-theme');
-            htmlEl.setAttribute('data-theme', newTheme);
-        });
+        btn.addEventListener('click', () => htmlEl.setAttribute('data-theme', btn.getAttribute('data-set-theme')));
     });
 });
 
 window.lenis = new Lenis();
 
-function raf(time) {
-    window.lenis.raf(time);
-    requestAnimationFrame(raf);
-}
+window.lenis.on('scroll', ScrollTrigger.update);
 
-requestAnimationFrame(raf);
+gsap.ticker.add((time) => {
+  window.lenis.raf(time * 1000);
+});
+gsap.ticker.lagSmoothing(0);
 
 function travarScrollLenis() {
-    const lenisInstance = window.lenis;
-
-    if (lenisInstance) {
-        lenisInstance.stop();
+    if (window.lenis) {
+        window.lenis.stop();
         document.documentElement.classList.add('scroll-travado');
-        console.log("Scroll bloqueado com sucesso.");
-
-        setTimeout(() => {
-            lenisInstance.start();
-            document.documentElement.classList.remove('scroll-travado');
-            console.log("Scroll liberado.");
-        }, 3000)
-
     } else {
         setTimeout(travarScrollLenis, 100);
     }
 }
 
 window.addEventListener('DOMContentLoaded', travarScrollLenis);
-
-const lenis = new Lenis()
-
-lenis.on('scroll', ScrollTrigger.update)
-
-gsap.ticker.add((time)=>{
-  lenis.raf(time * 1000)
-})
-
-gsap.ticker.lagSmoothing(0)

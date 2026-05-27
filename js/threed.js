@@ -283,8 +283,16 @@ Promise.all([
         initGPGPU(data);
         createParticles(data);
     })
-]).then(() => {
+]).then(async () => {
+    renderer.compile(scene, camera);
+
+    renderer.render(scene, camera);
+
+    await new Promise(resolve => requestAnimationFrame(resolve));
+
     initScrollAnimation();
+    
+    window.dispatchEvent(new Event('simulation-loaded'));
 });
 
 function initScrollAnimation() {
