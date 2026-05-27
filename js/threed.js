@@ -10,11 +10,13 @@ const SELECTED_MODEL = Math.random() < 0.5 ? "Eddy" : "Ydde";
 const container = document.getElementById('canvas-container');
 const isMobile = () => window.innerWidth < 800;
 
+const targetResolution = isMobile() ? 250 : 400;
+
 const setups = [
     {
         name: "Eddy",
         gltfFile: 'models/Eddy7.glb',
-        binFile: 'models/baked/Eddy_bake.bin',
+        binFile: `models/baked/Eddy_${targetResolution}.bin`, 
         animation: 'Idle',
         desktop: { x: 0.25, y: -2.4, z: 0, scale: 1.6, camZ: 3.7 },
         mobile: { x: 0.1, y: -2.4, z: 0, scale: 1.5, camZ: 3.7 },
@@ -22,7 +24,7 @@ const setups = [
     {
         name: "Ydde",
         gltfFile: 'models/Ydde3.glb',
-        binFile: 'models/baked/Ydde_bake.bin',
+        binFile: `models/baked/Ydde_${targetResolution}.bin`,
         animation: 'Play_Guitar',
         desktop: { x: 0.4, y: -0.85, z: 0, scale: 1.7, camZ: 3.7 },
         mobile: { x: 0.1, y: -0.65, z: 0, scale: 1.25, camZ: 3 }
@@ -31,8 +33,8 @@ const setups = [
 
 const config = setups.find(s => s.name === SELECTED_MODEL);
 
-const WIDTH = 510;
-const PARTICLES = WIDTH * WIDTH;
+let WIDTH = 0;
+let PARTICLES = 0;
 
 const computeVelocityShader = `
     uniform float delta; uniform float drag;
@@ -61,9 +63,13 @@ const computeVelocityShader = `
         float dynamicReturn = mix(10.0, 0.0, chaosFactor) + (distSq * distSq);
         vec3 force = toTarget * dynamicReturn + (turbulence * mix(0.05, 0.75, chaosFactor));
 
-        float mouseDist = distance(pos, mousePos);
-        if (mouseDist < mouseRadius) {
-            force += normalize(pos - mousePos) * ((1.0 - (mouseDist / mouseRadius)) * mouseStrength);
+        vec3 toMouse = pos - mousePos;
+        float distSqToMouse = dot(toMouse, toMouse);
+        float radiusSq = mouseRadius * mouseRadius;
+
+        if (distSqToMouse < radiusSq) {
+            float mouseDist = sqrt(distSqToMouse);
+            force += normalize(toMouse) * ((1.0 - (mouseDist / mouseRadius)) * mouseStrength);
         }
 
         vel += force * delta;
@@ -88,6 +94,7 @@ const computePositionShader = `
 
 const particleVertexShader = `
     uniform sampler2D texturePosition;
+    uniform float pointMultiplier;
     attribute vec3 aColor; 
     varying vec3 vColor; varying vec3 vWorldPosition;
 
@@ -96,7 +103,8 @@ const particleVertexShader = `
         vec4 texPos = texture2D( texturePosition, position.xy );
         vec4 mvPosition = modelViewMatrix * vec4( texPos.xyz, 1.0 );
         vWorldPosition = (modelMatrix * vec4(texPos.xyz, 1.0)).xyz;
-        gl_PointSize = 22.0 * ( 1.0 / - mvPosition.z );
+        
+        gl_PointSize = (25.0 * pointMultiplier) * ( 1.0 / - mvPosition.z );
         gl_Position = projectionMatrix * mvPosition;
     }
 `;
@@ -125,9 +133,9 @@ const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(35, container.clientWidth / container.clientHeight, 0.1, 1000);
 camera.position.set(0, 0, isMobile() ? config.mobile.camZ : config.desktop.camZ);
 
-const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
 renderer.setSize(container.clientWidth, container.clientHeight);
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
 container.appendChild(renderer.domElement);
 
 scene.add(new THREE.AmbientLight(0xffffff, 1.5));
@@ -163,9 +171,12 @@ async function loadPrebakedBinary(url) {
     const arrayBuffer = await response.arrayBuffer();
 
     const headerView = new Int32Array(arrayBuffer, 0, 2);
-    const bakeWidth = headerView[0];
+    
+    WIDTH = headerView[0];
+    PARTICLES = WIDTH * WIDTH;
+    
     const numFrames = headerView[1];
-    const totalChannels = bakeWidth * bakeWidth * 3;
+    const totalChannels = PARTICLES * 3;
 
     const headerBytes = 8;
     const colorBytes = totalChannels;
@@ -245,6 +256,7 @@ function createParticles(data) {
         uniforms: {
             texturePosition: { value: null },
             lightDirection: { value: topLight.position.clone().normalize() },
+            pointMultiplier: { value: (400.0 / WIDTH) }
         },
         vertexShader: particleVertexShader,
         fragmentShader: particleFragmentShader,
@@ -276,32 +288,90 @@ Promise.all([
 });
 
 function initScrollAnimation() {
-    const tl = gsap.timeline({
-        scrollTrigger: {
-            trigger: "main",
-            start: "top top",
-            end: "+=2000",
-            scrub: 1,
-            pin: true,
-            anticipatePin: 1
+    const mm = gsap.matchMedia();
+    const activeScale = typeof isMobile === 'function' && isMobile() ? config.mobile.scale : config.desktop.scale;
+
+    mm.add({
+        isDesktop: "(min-width: 769px)", 
+        isMobile: "(max-width: 768px)"
+    }, (context) => {
+        let { isDesktop, isMobile } = context.conditions;
+
+        gsap.set("main", { position: "relative" });
+
+        if (isDesktop) {
+            gsap.set(".content", { x: "0vw", opacity: 1 });
+            gsap.set(".ydde", { x: "0vw" });
+            gsap.set(".image-gradient", { x: "0vw" });
+            gsap.set(".content2", { 
+                position: "absolute", 
+                right: "10%", 
+                x: "100vw",
+                opacity: 0, 
+                top: "50%", 
+                yPercent: -50, 
+                maxWidth: "40rem",
+                left: "auto", 
+                width: "auto", 
+                margin: ""
+            });
+        } else {
+            const c1 = document.querySelector(".content");
+            
+            gsap.set(".content", { x: "0vw", opacity: 1 });
+            gsap.set(".ydde", { x: "0vw" });
+            gsap.set(".image-gradient", { x: "0vw" });
+            
+            gsap.set(".content2", { 
+                position: "absolute",
+                top: () => c1.offsetTop,
+                left: () => c1.offsetLeft,
+                width: () => c1.offsetWidth,
+                height: () => c1.offsetHeight,
+                margin: 0,
+                padding: 0,
+                x: "100vw",
+                opacity: 0,
+                yPercent: 0,
+                right: "auto",
+                maxWidth: "none"
+            });
         }
+
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: "main",
+                start: "top top",
+                end: "+=2000",
+                scrub: 1,
+                pin: true,
+                anticipatePin: 1,
+                invalidateOnRefresh: true
+            }
+        });
+
+        tl.to(groupGLTF.rotation, { y: Math.PI, duration: 0.5, ease: "power2.in" }, 0)
+          .to(groupGLTF.scale, { x: 0, y: 0, z: 0, duration: 0.5, ease: "power2.in" }, 0)
+          .to(groupParticles.scale, { x: activeScale, y: activeScale, z: activeScale, duration: 0.5, ease: "power2.out" }, 0.5)
+          .fromTo(groupParticles.rotation, { y: -Math.PI }, { y: 0, duration: 0.5, ease: "power2.out" }, 0.5);
+
+        if (isDesktop) {
+            tl.to(".content", { x: "-50vw", opacity: 0, duration: 1, ease: "power2.inOut" }, 0)
+              .to(".ydde", { x: "-50vw", duration: 1, ease: "power2.inOut" }, 0)
+              .to(".image-gradient", { x: "-60vw", duration: 1, ease: "power2.inOut" }, 0)
+              .to(".content2", { x: "0vw", opacity: 1, duration: 1, ease: "power2.inOut" }, 0);
+        } else {
+            tl.to(".content", { x: "-100vw", opacity: 0, duration: 1, ease: "power2.inOut" }, 0)
+              .to(".content2", { x: "0", opacity: 1, duration: 1, ease: "power2.inOut" }, 0);
+        }
+
+        return () => gsap.set("main, .content, .content2, .ydde", { clearProps: "all" });
     });
-
-    const activeScale = isMobile() ? config.mobile.scale : config.desktop.scale;
-
-    tl.to(groupGLTF.rotation, { y: Math.PI, duration: 1, ease: "power2.inOut" }, 0)
-        .to(groupGLTF.scale, { x: 0, y: 0, z: 0, duration: 1, ease: "power2.inOut" }, 0)
-
-        .to(groupParticles.scale, { x: activeScale, y: activeScale, z: activeScale, duration: 0.5, ease: "power2.inOut" }, 1)
-        .fromTo(groupParticles.rotation,
-            { y: -Math.PI },
-            { y: 0, duration: 1, ease: "power2.inOut" },
-            1);
 
     setTimeout(() => {
         ScrollTrigger.refresh();
         if (typeof AOS !== 'undefined') AOS.refresh();
-    }, 100);
+    }, 150);
 }
 
 window.addEventListener('deviceorientation', (event) => {
@@ -355,7 +425,9 @@ function animate() {
     requestAnimationFrame(animate);
     const delta = clock.getDelta(), time = clock.getElapsedTime();
 
-    if (mixerGLTF) mixerGLTF.update(delta);
+    if (mixerGLTF && groupGLTF.scale.x > 0.01) {
+        mixerGLTF.update(delta);
+    }
 
     groupGLTF.rotation.y += (targetRotationY - groupGLTF.rotation.y) * 0.05;
     groupGLTF.rotation.x += (targetRotationX - groupGLTF.rotation.x) * 0.05;
@@ -364,14 +436,16 @@ function animate() {
     groupParticles.rotation.x += (targetRotationX - groupParticles.rotation.x) * 0.05;
 
     if (gpuCompute && particleMesh && bakeData) {
-        const frameIndex = Math.floor(time * 24) % bakeData.frames.length;
-        velocityUniforms.targetTexture.value = bakedTargets[frameIndex];
+        if (groupParticles.scale.x > 0.01) {
+            const frameIndex = Math.floor(time * 24) % bakeData.frames.length;
+            velocityUniforms.targetTexture.value = bakedTargets[frameIndex];
 
-        updateMouseWorldPosition();
-        velocityUniforms.delta.value = Math.min(delta, 0.03);
-        velocityUniforms.time.value = time;
-        gpuCompute.compute();
-        particleMesh.material.uniforms.texturePosition.value = gpuCompute.getCurrentRenderTarget(positionVariable).texture;
+            updateMouseWorldPosition();
+            velocityUniforms.delta.value = Math.min(delta, 0.03);
+            velocityUniforms.time.value = time;
+            gpuCompute.compute();
+            particleMesh.material.uniforms.texturePosition.value = gpuCompute.getCurrentRenderTarget(positionVariable).texture;
+        }
     }
 
     renderer.render(scene, camera);
