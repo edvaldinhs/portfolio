@@ -440,7 +440,7 @@ main {
     }
 }
 
-.content {
+.content, .content2 {
     max-width: 40rem;
     margin-left: 10%;
     z-index: 4;
@@ -583,7 +583,7 @@ main {
 }
 
 .ydde {
-    width: 50vw;
+    width: 150vw;
     height: 100vh;
     position: fixed;
     top: 0;
@@ -615,6 +615,14 @@ main {
 
     .content {
         margin-left: 0;
+        margin-top: 0;
+        max-width: 90%;
+        order: 2;
+    }
+
+    .content2 {
+        margin-left: 0;
+        margin-top: 0;
         max-width: 90%;
         order: 2;
     }
@@ -631,14 +639,6 @@ main {
     .buttons {
         justify-content: center;
     }
-
-    .content {
-        margin-left: 5%;
-        max-width: 90%;
-        margin-top: 0;
-    }
-
-
 }
 
 @media(max-width: 768px) {
@@ -719,6 +719,16 @@ main {
     }
 
     .content h1 {
+        font-size: 2.5rem;
+    }
+
+    .content2 {
+        order: 2;
+        max-width: 90%;
+        margin-left: 5%;
+    }
+
+    .content2 h1 {
         font-size: 2.5rem;
     }
 
