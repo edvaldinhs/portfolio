@@ -354,6 +354,8 @@ function initScrollAnimation() {
                 scrub: 1,
                 pin: true,
                 anticipatePin: 1,
+                pinType: "fixed",
+                fastScrollEnd: true,
                 invalidateOnRefresh: true
             }
         });
@@ -376,10 +378,10 @@ function initScrollAnimation() {
         return () => gsap.set("main, .content, .content2, .ydde", { clearProps: "all" });
     });
 
-    setTimeout(() => {
+    window.addEventListener("load", () => {
         ScrollTrigger.refresh();
         if (typeof AOS !== 'undefined') AOS.refresh();
-    }, 150);
+    });
 }
 
 window.addEventListener('deviceorientation', (event) => {
@@ -425,6 +427,8 @@ window.addEventListener('resize', () => {
     if (ScrollTrigger.getAll().length === 0) {
         groupGLTF.scale.set(pos.scale, pos.scale, pos.scale);
     }
+
+    ScrollTrigger.refresh();
 });
 
 const clock = new THREE.Clock();
