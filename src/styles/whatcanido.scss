@@ -1,6 +1,7 @@
 .whatcanido {
     position: relative;
     height: 100vh;
+    height: 100svh;
     overflow: hidden;
 }
 
@@ -8,6 +9,7 @@
     position: relative;
     width: 100vw;
     height: 100vh;
+    height: 100svh;
 }
 
 .whatcanido__panel {
@@ -16,6 +18,7 @@
     left: 0;
     width: 100vw;
     height: 100vh;
+    height: 100svh;
     overflow: hidden;
 }
 
@@ -95,40 +98,76 @@
 }
 
 @media (max-width: 768px) {
+    .whatcanido {
+        height: auto;
+        overflow: visible;
+    }
+
+    .whatcanido__track {
+        position: relative;
+        width: 100%;
+        height: auto;
+    }
+
+    .whatcanido__panel {
+        position: relative;
+        width: 100%;
+        height: auto;
+    }
+
+    .whatcanido__panel--next {
+        left: 0;
+    }
+
     .whatcanido-hero {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+        padding: 5rem 1.25rem 4rem;
+        padding-top: calc(5rem + env(safe-area-inset-top));
+        overflow-x: clip;
+
+        .whatcanido-orb {
+            position: relative;
+            top: auto;
+            right: auto;
+            bottom: auto;
+            order: 2;
+            margin-top: 2.5rem;
+        }
+
         .whatcanido-canvas {
-            right: 0;
-            bottom: 0;
-            width: 85vw;
-            height: 42vh;
+            position: relative;
+            right: auto;
+            bottom: auto;
+            order: 3;
+            width: 74vw;
+            height: auto;
+            aspect-ratio: 16 / 10;
+            margin-top: 1.5rem;
         }
 
         .whatcanido-h1 {
-            top: auto;
-            bottom: auto;
-            transform: none;
-            font-size: clamp(3rem, 1rem + 14vw, 6rem);
+            position: relative;
+            order: 1;
+            margin: 0.15em 0;
+            font-size: clamp(2.75rem, 1rem + 12vw, 5rem);
+            text-align: center;
         }
 
-        .whatcanido-h1--is {
-            top: 4%;
-            left: 30%;
-        }
-
-        .whatcanido-h1--this {
-            top: 42%;
-            left: 10%;
-        }
-
+        .whatcanido-h1--is,
+        .whatcanido-h1--this,
         .whatcanido-h1--me {
-            bottom: 44%;
-            left: 52%;
+            top: auto;
+            right: auto;
+            bottom: auto;
+            left: auto;
+            transform: none;
         }
 
         .whatcanido-h4 {
-            top: 49%;
-            left: 16%;
-            font-size: clamp(1.25rem, 0.75rem + 3vw, 2rem);
+            display: none;
         }
     }
 }
