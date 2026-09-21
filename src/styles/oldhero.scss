@@ -3,6 +3,7 @@
     position: relative;
     display: block;
     height: 100vh;
+    height: 100svh;
     min-height: 0;
     margin: 40vh 0;
     overflow: hidden;
@@ -32,7 +33,7 @@
         .oldhero__label {
             grid-area: 1 / 1;
             margin: 0;
-            font: italic 500 clamp(10rem, 2rem + 10vw, 11rem) / 0.9 var(--font-display);
+            font: italic 700 clamp(10rem, 2rem + 10vw, 11rem) / 0.9 var(--font-display);
             letter-spacing: 0.01em;
             text-wrap: nowrap;
         }
@@ -89,23 +90,31 @@
     background-color: #e4dfda;
 }
 
+@media (hover: none), (pointer: coarse) {
+    .oldhero {
+        .oldhero__hint {
+            display: none;
+        }
+    }
+}
+
 @media (max-width: 768px) {
     .oldhero {
         .oldhero__hint {
-            top: 9%;
+            top: 18%;
             font-size: 0.8rem;
         }
 
         .oldhero__label {
-            font-size: clamp(2.75rem, 1rem + 11vw, 5rem);
+            font: 900 clamp(4.5rem, 2rem + 5vw, 6rem) / 0.9 var(--font-display) !important;
         }
 
         .oldhero__title--top {
-            top: 24%;
+            top: 22%;
         }
 
         .oldhero__title--bottom {
-            top: 38%;
+            top: 72%;
         }
     }
 }

@@ -11,7 +11,10 @@ interface OrbLogoProps {
 export default function OrbLogo({ href, icon, label, className = '' }: OrbLogoProps) {
   const ref = useRef<HTMLAnchorElement>(null)
 
+  const canHover = () => window.matchMedia('(hover: hover) and (pointer: fine)').matches
+
   const handleMove = (e: MouseEvent<HTMLAnchorElement>) => {
+    if (!canHover()) return
     const el = ref.current
     if (!el) return
     const { left, top, width, height } = el.getBoundingClientRect()
@@ -25,6 +28,7 @@ export default function OrbLogo({ href, icon, label, className = '' }: OrbLogoPr
   }
 
   const handleLeave = () => {
+    if (!canHover()) return
     const el = ref.current
     if (!el) return
     gsap.to(el, {

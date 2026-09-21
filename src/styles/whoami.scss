@@ -197,7 +197,8 @@
 
 @media (max-width: 768px) {
     .whoami {
-        padding: 8vh 0;
+        padding: 16vh 0;
+        padding-top: max(50vh, calc(5rem + env(safe-area-inset-top)));
 
         .whoami-container {
             padding-top: 3rem;
@@ -220,7 +221,7 @@
         }
 
         .home-intro_svg {
-            width: 100%;
+            width: 170%;
             min-width: 0;
         }
     }
