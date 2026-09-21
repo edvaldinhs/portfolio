@@ -1,0 +1,227 @@
+@font-face {
+    font-family: "Inter Tight";
+    src: url(/fonts/InterTight-VariableFont_wght.woff2) format("woff2"), url(/fonts/InterTight-VariableFont_wght.woff) format("woff");
+    font-style: normal;
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: "Inter Tight";
+    src: url(/fonts/InterTight-Italic-VariableFont_wght.woff2) format("woff2"), url(/fonts/InterTight-Italic-VariableFont_wght.woff) format("woff");
+    font-style: italic;
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: "Cardinal Classic Long";
+    src: url(/fonts/CardinalClassicMidWeb-Regular.woff2) format("woff2");
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Cardinal Classic Long";
+    src: url(/fonts/CardinalClassicMidWeb-Italic.woff2) format("woff2");
+    font-style: italic;
+    font-weight: 500;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Cardinal Classic Long";
+    src: url(/fonts/CardinalClassicMidWeb-Medium.woff2) format("woff2");
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Cardinal Classic Long";
+    src: url(/fonts/CardinalClassicMidWeb-MediumItalic.woff2) format("woff2");
+    font-style: italic;
+    font-weight: 500;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Cardinal Classic Long";
+    src: url(/fonts/CardinalClassicLongWeb-SemiBold-Trial.woff2) format("woff2");
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Cardinal Classic Long";
+    src: url(/fonts/CardinalClassicLongWeb-SemiBoldItalic-Trial.woff2) format("woff2");
+    font-style: italic;
+    font-weight: 600;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Cardinal Classic Long";
+    src: url(/fonts/CardinalClassicLongWeb-Bold-Trial.woff2) format("woff2");
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Cardinal Classic Long";
+    src: url(/fonts/CardinalClassicLongWeb-BoldItalic-Trial.woff2) format("woff2");
+    font-style: italic;
+    font-weight: 700;
+    font-display: swap;
+}
+
+:root {
+    --font-display: "Cardinal Classic Long", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+    --font-sans: "Inter Tight", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+}
+    
+.whoami {
+    position: relative;
+    width: 100%;
+    padding: 60vh 0 50vh 0;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    overflow-x: clip;
+
+    .whoami-container {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        max-width: calc(100% - 1.5rem);
+        margin-left: auto;
+        margin-right: auto;
+        padding-top: 6rem;
+    }
+
+    .whoami-overlay {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 60%;
+        z-index: 2;
+        pointer-events: none;
+        background: linear-gradient(to bottom, transparent, var(--bg-color));
+    }
+
+    .u-grid {
+        display: grid;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        width: 100%;
+        column-gap: 0.75em;
+        row-gap: 1.5em;
+        align-items: center;
+
+        &.no-gap {
+            column-gap: 0;
+            row-gap: 0;
+        }
+    }
+
+    .home-intro_layout {
+        height: 100%;
+    }
+
+    .col-6 {
+        grid-column-end: span 6;
+    }
+
+    .offset-4 {
+        grid-column-start: 6;
+    }
+
+    .v-flex_left-med {
+        display: flex;
+        flex-flow: column;
+        align-items: flex-start;
+        row-gap: 2.25em;
+    }
+
+    .home-intro_quote {
+        position: relative;
+    }
+
+    .t-title-italic {
+        font: 500 clamp(0.875rem, 0.5rem + 2vw, 2.25rem) / 1.2 var(--font-display);
+        
+        font-style: italic;
+        text-wrap: balance;
+        color: var(--text-color);
+    }
+
+    .scribble-el {
+        pointer-events: none;
+        position: absolute;
+
+        svg {
+            fill: none;
+            width: 100%;
+            height: auto;
+        }
+    }
+
+    .home-intro_svg {
+        width: 180%;
+        min-width: 8em;
+        bottom: -225%;
+        right: -20%;
+
+        svg {
+            stroke: var(--accent-color);
+            stroke-width: 0.5px;
+        }
+    }
+
+    .text-scroll-fade {
+        --mask-position: -40;
+        -webkit-mask-image: linear-gradient(#000 calc(var(--mask-position) * 1%), rgba(0, 0, 0, 0.9) calc((var(--mask-position) + 5) * 1%), rgba(0, 0, 0, 0.8) calc((var(--mask-position) + 10) * 1%), rgba(0, 0, 0, 0.6) calc((var(--mask-position) + 20) * 1%), rgba(0, 0, 0, 0.4) calc((var(--mask-position) + 30) * 1%), rgba(0, 0, 0, 0.2) calc((var(--mask-position) + 35) * 1%), rgba(0, 0, 0, 0.1) calc((var(--mask-position) + 40) * 1%), rgba(0, 0, 0, 0.1) 100%);
+        mask-image: -webkit-gradient(linear, left top, left bottom, from(#000), color-stop(rgba(0, 0, 0, 0.9)), color-stop(rgba(0, 0, 0, 0.8)), color-stop(rgba(0, 0, 0, 0.6)), color-stop(rgba(0, 0, 0, 0.4)), color-stop(rgba(0, 0, 0, 0.2)), color-stop(rgba(0, 0, 0, 0.1)), to(rgba(0, 0, 0, 0.1)));
+        mask-image: linear-gradient(#000 calc(var(--mask-position) * 1%), rgba(0, 0, 0, 0.9) calc((var(--mask-position) + 5) * 1%), rgba(0, 0, 0, 0.8) calc((var(--mask-position) + 10) * 1%), rgba(0, 0, 0, 0.6) calc((var(--mask-position) + 20) * 1%), rgba(0, 0, 0, 0.4) calc((var(--mask-position) + 30) * 1%), rgba(0, 0, 0, 0.2) calc((var(--mask-position) + 35) * 1%), rgba(0, 0, 0, 0.1) calc((var(--mask-position) + 40) * 1%), rgba(0, 0, 0, 0.1) 100%);
+    }
+
+    .h3 {
+        font: 400 clamp(1.5rem, 1rem + 2vw, 2.625rem) / 1 var(--font-display);
+        text-transform: uppercase;
+    }
+
+    .text-indent-4col {
+        text-indent: calc((100% / 12 * 4));
+    }
+}
+
+@media (max-width: 768px) {
+    .whoami {
+        padding: 8vh 0;
+
+        .whoami-container {
+            padding-top: 3rem;
+        }
+
+        .u-grid {
+            grid-template-columns: repeat(8, minmax(0, 1fr));
+        }
+
+        .col-6 {
+            grid-column-end: span 6;
+        }
+
+        .offset-4 {
+            grid-column-start: 2;
+        }
+
+        .text-indent-4col {
+            text-indent: calc((100% / 12 * 2));
+        }
+
+        .home-intro_svg {
+            width: 100%;
+            min-width: 0;
+        }
+    }
+}

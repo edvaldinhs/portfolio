@@ -1,10 +1,7 @@
-import { useEffect, type MouseEvent } from 'react'
+import { type MouseEvent } from 'react'
 import { Link } from 'react-router-dom'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useLenis } from '../hooks/useLenis'
-
-gsap.registerPlugin(ScrollTrigger)
+import { useFooterAnimation } from '../animations/footer'
 
 const CONTACT_URL =
   'https://mail.google.com/mail/u/0/?view=cm&fs=1&to=edvaldo.s.dimap@gmail.com'
@@ -12,40 +9,7 @@ const CONTACT_URL =
 export default function Footer() {
   const { lenis } = useLenis()
 
-  useEffect(() => {
-    ScrollTrigger.config({ ignoreMobileResize: true })
-
-    const part2 = document.querySelector<HTMLElement>('.part-2')
-
-    if (!part2) return
-
-    const ctx = gsap.context(() => {
-      const revealTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: '.scroll-container',
-          start: 'bottom bottom',
-          end: () => `+=${part2.offsetHeight}`,
-          scrub: true,
-          pin: true,
-          invalidateOnRefresh: true,
-          refreshPriority: -1,
-        },
-      })
-
-      revealTl.to('.part-1', {
-        y: () => -part2.offsetHeight,
-        ease: 'none',
-      })
-    })
-
-    ScrollTrigger.sort()
-    ScrollTrigger.refresh()
-
-    return () => {
-      ctx.revert()
-      ScrollTrigger.refresh()
-    }
-  }, [])
+  useFooterAnimation()
 
   const scrollToAnchor = (e: MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault()

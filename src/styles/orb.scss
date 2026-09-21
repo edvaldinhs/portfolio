@@ -1,0 +1,86 @@
+.orb-logo {
+    --orb-size: 7.5rem;
+    position: absolute;
+    display: grid;
+    place-items: center;
+    width: var(--orb-size);
+    height: var(--orb-size);
+    color: var(--text-color);
+    text-decoration: none;
+    z-index: 6;
+    will-change: transform;
+
+    .orb-logo__ring {
+        position: absolute;
+        inset: 0;
+        border: 1px solid currentColor;
+        border-radius: 50%;
+        opacity: 0.9;
+        animation: orb-spin 16s linear infinite;
+        transition: transform 0.5s ease, opacity 0.4s ease;
+    }
+
+    .orb-logo__core {
+        position: relative;
+        width: 35%;
+        height: 35%;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        background-color: var(--text-color);
+        color: var(--bg-color);
+        transition: transform 0.5s ease, background-color 0.3s ease, color 0.3s ease;
+
+        i {
+            font-size: 1.6rem;
+            line-height: 1;
+        }
+    }
+
+    &:hover {
+        .orb-logo__ring {
+            transform: scale(1.12);
+            opacity: 1;
+        }
+
+        .orb-logo__core {
+            transform: scale(1.06);
+        }
+    }
+}
+
+.isthisme-orb {
+    top: 12%;
+    left: 8%;
+}
+
+.whatcanido-orb {
+    bottom: 12%;
+    left: 8%;
+}
+
+@keyframes orb-spin {
+    to {
+        rotate: 360deg;
+    }
+}
+
+@media (max-width: 768px) {
+    .orb-logo {
+        --orb-size: 5.5rem;
+
+        .orb-logo__core i {
+            font-size: 1.25rem;
+        }
+    }
+
+    .isthisme-orb {
+        top: 12%;
+        left: 6%;
+    }
+
+    .whatcanido-orb {
+        top: 12%;
+        right: 6%;
+    }
+}

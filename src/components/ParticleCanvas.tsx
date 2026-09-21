@@ -1,15 +1,23 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { ParticleSimulation } from '../three/ParticleSimulation'
+import { useOldHeroScrollAnimation } from '../animations/oldHero'
 
 export default function ParticleCanvas() {
   const containerRef = useRef<HTMLDivElement>(null)
+  const [sim, setSim] = useState<ParticleSimulation | null>(null)
 
   useEffect(() => {
     const container = containerRef.current
     if (!container) return
-    const sim = new ParticleSimulation(container)
-    return () => sim.dispose()
+    const simulation = new ParticleSimulation(container)
+    setSim(simulation)
+    return () => {
+      simulation.dispose()
+      setSim(null)
+    }
   }, [])
 
-  return <div id="canvas-container" className="ydde fade-up-2" ref={containerRef} />
+  useOldHeroScrollAnimation(sim)
+
+  return <div id="canvas-container" className="oldhero__scene" ref={containerRef} />
 }

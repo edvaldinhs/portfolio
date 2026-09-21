@@ -1,6 +1,6 @@
 export default function HeroLogo() {
   return (
-    <section className="hero" id="hero">
+    <section className="hero-l" id="hero-l">
       <div className="hero-logo-wrapper reveal-item">
         <svg className="hero-svg" viewBox="0 0 1885 374" xmlns="http://www.w3.org/2000/svg">
           <path

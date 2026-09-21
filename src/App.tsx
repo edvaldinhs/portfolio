@@ -1,8 +1,7 @@
 import { useEffect } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import AOS from 'aos'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { ScrollTrigger } from './lib/gsap'
 import { ThemeProvider } from './hooks/useTheme'
 import { LenisProvider } from './hooks/useLenis'
 import Preloader from './components/Preloader'
@@ -10,8 +9,7 @@ import CustomCursor from './components/CustomCursor'
 import ThemeSwitcher from './components/ThemeSwitcher'
 import Home from './pages/Home'
 import About from './pages/About'
-
-gsap.registerPlugin(ScrollTrigger)
+import WhatCanIDoPage from './pages/WhatCanIDoPage'
 
 function Layout() {
   const location = useLocation()
@@ -35,6 +33,7 @@ function Layout() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
+        <Route path="/what-can-i-do" element={<WhatCanIDoPage />} />
       </Routes>
     </>
   )
