@@ -37,12 +37,13 @@ export function buildLanding(tl: Timeline) {
   tl.fromTo(
     '.eddy-hero-canvas',
     {
-      opacity: 0},{
+      opacity: 0,
+    },{
       opacity: 1,
       ease: 'power3.out',
       duration: 2.2,
     },
-    '-=1.8',
+    '-=1.4',
   )
 
   tl.to(

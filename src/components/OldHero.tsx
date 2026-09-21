@@ -8,7 +8,7 @@ export default function OldHero() {
         <h1 className="oldhero__label oldhero__label--after">HUGE</h1>
       </div>
 <div className="oldhero__title oldhero__title--bottom">
-        <h1 className="oldhero__label oldhero__label--before">DESIGNS</h1>
+        <h1 className="oldhero__label oldhero__label--before">DECISION</h1>
         <h1 className="oldhero__label oldhero__label--after">IMPACT</h1>
       </div>
       <p className="oldhero__hint">hover your mouse</p>

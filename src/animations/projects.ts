@@ -50,23 +50,6 @@ export function useProjectsAnimation(rootRef: RefObject<HTMLElement | null>) {
         },
       })
 
-      if (media) {
-        tl.fromTo(
-          media,
-          { scale: 1.12, autoAlpha: 0 },
-          { scale: 1, autoAlpha: 1, duration: 1.1, ease: 'power2.out' },
-          0,
-        )
-      }
-      if (reveal.length) {
-        tl.fromTo(
-          reveal,
-          { yPercent: 110 },
-          { yPercent: 0, stagger: 0.12, duration: 0.9, ease: 'power3.out' },
-          '<0.2',
-        )
-      }
-
       const st = tl.scrollTrigger
       cleanups.push(() => {
         st?.kill()

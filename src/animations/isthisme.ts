@@ -10,6 +10,38 @@ export function useIsThisMeAnimation(rootRef: RefObject<HTMLElement | null>) {
     if (reducedMotion) return
 
     const ctx = gsap.context(() => {
+      const slideFromLeft = () => -(window.innerWidth + 300)
+
+      gsap.fromTo(
+        root.querySelectorAll<HTMLElement>('.isthisme-canvas'),
+        { x: slideFromLeft },
+        {
+          x: 0,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: root,
+            start: 'top 99%',
+            end: 'top 1%',
+            scrub: true,
+          },
+        },
+      )
+
+      gsap.fromTo(
+        root.querySelectorAll<HTMLElement>('.isthisme-orb'),
+        { x: slideFromLeft },
+        {
+          x: 0,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: root,
+            start: 'top 99%',
+            end: 'top 1%',
+            scrub: true,
+          },
+        },
+      )
+
       gsap.fromTo(
         root.querySelectorAll<HTMLElement>('.isthisme-h1'),
         { y: 120, opacity: 0 },

@@ -30,9 +30,8 @@ export default function WhoAmI() {
               </div>
               <div className="text-scroll-fade">
                 <h3 className="h3 text-indent-4col">
-                  I'm Edinho — a fullstack developer and student who turns
-                  ideas into playful, precise experiences, iterating until
-                  every detail feels alive.
+                  I'm Edinho — a fullstack developer and student who loves to turn
+                  ideas into fun projects.
                 </h3>
               </div>
             </div>
