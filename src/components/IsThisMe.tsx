@@ -11,13 +11,13 @@ export default function IsThisMe() {
   return (
     <section className="isthisme" ref={rootRef}>
       <div className="isthisme-canvas" aria-hidden="true">
-        <YddeWall />
+        <YddeWall src="YddeIdle.webm" />
       </div>
       <div className="isthisme-fig">
-        <img className="isthisme-img" src="/img/isthisme-placeholder.svg" alt="" />
+        <img className="isthisme-img" src="/img/edinhonovo.webp" alt="" />
         <div className="isthisme-caption">
-          <h2 className="isthisme-caption__title">My photo</h2>
-          <p className="isthisme-caption__text">Why we still here? - Just to suffer.</p>
+          <h2 className="isthisme-caption__title">Edinho</h2>
+          <p className="isthisme-caption__text">Very old photo btw, need to change as soon as possible</p>
         </div>
       </div>
       <OrbLogo

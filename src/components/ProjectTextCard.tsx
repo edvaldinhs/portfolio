@@ -6,16 +6,13 @@ interface ProjectTextCardProps {
 
 export default function ProjectTextCard({ project }: ProjectTextCardProps) {
   return (
-    <div className="right-card">
-      <div className="card-content">
-        <h3>{project.name}</h3>
-        <p className="description">{project.description}</p>
-        <div className="dpinline">
-          <a target="_blank" rel="noreferrer" href={project.url} className="btn-get-started">
-            Documentation &gt;
-          </a>
+    <div className="projects__copy" data-scroll-parallax="100%">
+      <div className="projects__copy-inner" data-scroll-parallax="-60">
+        <div className="projects__line">
+          <h2 className="projects__title projects__reveal">{project.name}</h2>
         </div>
       </div>
+      <p className="sr">{project.description}</p>
     </div>
   )
 }

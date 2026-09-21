@@ -16,7 +16,7 @@ export default function WhatCanIDoPanel() {
         label="GitHub"
       />
       <div className="whatcanido-canvas" aria-hidden="true">
-        <YddeWall />
+        <YddeWall src="YddeAttack.webm" />
       </div>
     </section>
   )

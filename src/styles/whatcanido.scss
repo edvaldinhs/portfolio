@@ -37,12 +37,13 @@
 
     .whatcanido-canvas {
         position: absolute;
-        right: 0;
+        right: 1%;
         bottom: 0;
-        width: 36vw;
-        height: 64vh;
+        width: 20vw;
+        height: 30vh;
         z-index: 3;
 
+        img,
         video {
             width: 100%;
             height: 100%;

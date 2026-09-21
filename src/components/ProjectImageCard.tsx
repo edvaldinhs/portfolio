@@ -6,10 +6,10 @@ interface ProjectImageCardProps {
 
 export default function ProjectImageCard({ project }: ProjectImageCardProps) {
   return (
-    <div className="left-card">
-      <div className={`reflection-container-${project.image}`} data-aos={project.flips}>
-        <div className="reflection-content" />
-      </div>
+    <div className="projects__media work-banner" data-scroll-parallax="60%">
+      <video muted autoPlay loop playsInline preload="auto" aria-hidden="true">
+        <source src={project.video} type="video/mp4" />
+      </video>
     </div>
   )
 }

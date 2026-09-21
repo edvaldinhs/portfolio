@@ -77,13 +77,9 @@
     text-align: center;
 
     h1 {
-        font-size: 3.5rem;
-        font-weight: 600;
-        letter-spacing: 0.1rem;
+        font: italic 500 clamp(3.5rem, 2rem + 8vw, 11rem) / 0.9 var(--font-display);
         margin: 2rem 0;
         margin-top: 0;
-        line-height: 1.2;
-        text-shadow: 0 0 10px rgba(128, 128, 128, 0.418);
     }
 
     h2 {

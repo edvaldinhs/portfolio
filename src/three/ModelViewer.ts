@@ -10,6 +10,11 @@ export interface ModelViewerConfig {
   modelZ?: number
   scale?: number
   tiltEnabled?: boolean
+  headGltfFile?: string
+  headFollow?: boolean
+  headBoneName?: string
+  headMaxYaw?: number
+  headMaxPitch?: number
   onLoaded?: () => void
 }
 
@@ -21,6 +26,13 @@ export class ModelViewer {
   private renderer: THREE.WebGLRenderer
   private model = new THREE.Group()
   private mixer: THREE.AnimationMixer | null = null
+  private headGltf: THREE.Group | null = null
+  private headMixer: THREE.AnimationMixer | null = null
+  private headBone: THREE.Bone | null = null
+  private headYawTarget = 0
+  private headPitchTarget = 0
+  private headYawCurrent = 0
+  private headPitchCurrent = 0
   private clock = new THREE.Clock()
   private targetRotationX = 0
   private targetRotationY = 0
@@ -95,8 +107,81 @@ export class ModelViewer {
     })
 
     if (this.disposed) return
+    if (this.config.headGltfFile) {
+      await this.loadHead()
+      if (this.disposed) return
+    }
     this.renderer.compile(this.scene, this.camera)
     this.onLoaded?.()
+  }
+
+  private async loadHead(): Promise<void> {
+    await new Promise<void>((resolve, reject) => {
+      new GLTFLoader().load(
+        this.config.headGltfFile!,
+        (gltf) => {
+          this.headGltf = gltf.scene
+          this.model.add(this.headGltf)
+          if (gltf.animations.length) {
+            this.headMixer = new THREE.AnimationMixer(gltf.scene)
+            const clip = this.config.animation
+              ? THREE.AnimationClip.findByName(gltf.animations, this.config.animation)
+              : undefined
+            this.headMixer.clipAction(clip || gltf.animations[0]).play()
+          }
+          resolve()
+        },
+        undefined,
+        reject,
+      )
+    })
+
+    if (this.disposed) return
+    const boneName = this.config.headBoneName
+    const named = boneName ? this.headGltf?.getObjectByName(boneName) : undefined
+    this.headBone = (named as THREE.Bone | null) ?? this.resolveHeadBone()
+  }
+
+  private resolveHeadBone(): THREE.Bone | null {
+    const scene = this.headGltf
+    if (!scene) return null
+
+    const skinned: THREE.SkinnedMesh[] = []
+    scene.traverse((obj) => {
+      if ((obj as THREE.SkinnedMesh).isSkinnedMesh) skinned.push(obj as THREE.SkinnedMesh)
+    })
+
+    const weights = new Map<number, number>()
+    for (const mesh of skinned) {
+      const geometry = mesh.geometry
+      const index = geometry.getAttribute('skinIndex')
+      const weightAttr = geometry.getAttribute('skinWeight')
+      if (!index || !weightAttr) continue
+      for (let i = 0; i < index.count; i++) {
+        const ids = [index.getX(i), index.getY(i), index.getZ(i), index.getW(i)]
+        const ws = [weightAttr.getX(i), weightAttr.getY(i), weightAttr.getZ(i), weightAttr.getW(i)]
+        for (let j = 0; j < 4; j++) {
+          const w = ws[j]
+          if (w <= 0) continue
+          weights.set(ids[j], (weights.get(ids[j]) ?? 0) + w)
+        }
+      }
+    }
+
+    let bestBone: THREE.Bone | null = null
+    let bestWeight = 0
+    for (const mesh of skinned) {
+      const bones = mesh.skeleton?.bones
+      if (!bones) continue
+      for (const [boneIndex, sum] of weights) {
+        const bone = bones[boneIndex] as THREE.Bone | undefined
+        if (bone && sum > bestWeight) {
+          bestWeight = sum
+          bestBone = bone
+        }
+      }
+    }
+    return bestBone
   }
 
   private observeVisibility() {
@@ -122,12 +207,22 @@ export class ModelViewer {
       this.renderer.setSize(width, height)
     }
 
+    const onPointerMove = (event: PointerEvent) => {
+      if (!this.config.headFollow) return
+      const mx = (event.clientX / window.innerWidth) * 2 - 1
+      const my = 1 - (event.clientY / window.innerHeight) * 2
+      this.headYawTarget = mx * (this.config.headMaxYaw ?? 0.3)
+      this.headPitchTarget = my * (this.config.headMaxPitch ?? 0.15)
+    }
+
     window.addEventListener('deviceorientation', onDeviceOrientation)
     window.addEventListener('resize', onResize)
+    window.addEventListener('pointermove', onPointerMove, { passive: true })
 
     this.cleanupFns.push(
       () => window.removeEventListener('deviceorientation', onDeviceOrientation),
       () => window.removeEventListener('resize', onResize),
+      () => window.removeEventListener('pointermove', onPointerMove),
     )
   }
 
@@ -140,13 +235,35 @@ export class ModelViewer {
     const delta = this.clock.getDelta()
 
     if (this.mixer) this.mixer.update(delta)
+    if (this.headMixer) this.headMixer.update(delta)
 
     if (this.config.tiltEnabled) {
       this.model.rotation.y += (this.targetRotationY - this.model.rotation.y) * 0.05
       this.model.rotation.x += (this.targetRotationX - this.model.rotation.x) * 0.05
     }
 
+    if (this.config.headFollow) this.applyHeadFollow()
+
     this.renderer.render(this.scene, this.camera)
+  }
+
+  private applyHeadFollow() {
+    const bone = this.headBone
+    if (!bone) return
+
+    const damp = 0.07
+    this.headYawCurrent += (this.headYawTarget - this.headYawCurrent) * damp
+    this.headPitchCurrent += (this.headPitchTarget - this.headPitchCurrent) * damp
+
+    const yaw = this.headYawCurrent
+    const pitch = this.headPitchCurrent
+    if (Math.abs(yaw) < 0.0005 && Math.abs(pitch) < 0.0005) return
+
+    const pose = bone.quaternion.clone()
+    const offset = new THREE.Quaternion().setFromEuler(
+      new THREE.Euler(-pitch, yaw, 0, 'XYZ'),
+    )
+    bone.quaternion.copy(pose).multiply(offset)
   }
 
   dispose() {
@@ -156,6 +273,7 @@ export class ModelViewer {
     this.onLoaded = undefined
 
     this.mixer?.stopAllAction()
+    this.headMixer?.stopAllAction()
     this.scene.traverse((obj) => {
       const mesh = obj as THREE.Mesh
       if (mesh.geometry) mesh.geometry.dispose()

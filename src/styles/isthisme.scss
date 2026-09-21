@@ -9,16 +9,21 @@
 
     .isthisme-canvas {
         position: absolute;
-        left: 0;
+        left: 2.5%;
         bottom: 0;
-        width: 36vw;
-        height: 64vh;
+        width: 20vw;
+        height: 30vh;
         z-index: 3;
 
+        img,
         video {
             width: 100%;
             height: 100%;
             object-fit: cover;
+        }
+
+        video {
+            transform: scaleX(-1);
         }
     }
 
@@ -27,7 +32,7 @@
         right: 0;
         top: 50%;
         transform: translateY(-50%);
-        width: calc(100% / 3);
+        width: calc((100% / 3) + 2.5rem);
         height: 95vh;
         z-index: 1;
 
@@ -98,8 +103,8 @@
 
     .isthisme-h4 {
         position: absolute;
-        top: 50%;
-        left: 28%;
+        bottom: 10%;
+        left: 55%;
         margin: 0;
         font: 400 clamp(1.375rem, 0.75rem + 2vw, 2.5rem) / 1.2 var(--font-sans);
         color: var(--cursor-color);
