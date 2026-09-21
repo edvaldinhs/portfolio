@@ -1,10 +1,6 @@
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 import { GPUComputationRenderer } from 'three/addons/misc/GPUComputationRenderer.js'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import gsap from 'gsap'
-
-gsap.registerPlugin(ScrollTrigger)
 
 interface ModelSetup {
   name: string
@@ -20,11 +16,12 @@ interface BakedData {
   frames: { targets: Float32Array }[]
 }
 
-const SELECTED_MODEL = Math.random() < 0.5 ? 'Eddy' : 'Ydde'
+// const SELECTED_MODEL = Math.random() < 0.5 ? 'Eddy' : 'Ydde'
+const SELECTED_MODEL = 'Ydde'
 
 const isMobile = () => window.innerWidth < 800
 
-const targetResolution = isMobile() ? 250 : 400
+const targetResolution = isMobile() ? 250 : 340
 
 const setups: ModelSetup[] = [
   {
@@ -32,16 +29,16 @@ const setups: ModelSetup[] = [
     gltfFile: '/models/Eddy7.glb',
     binFile: `/models/baked/Eddy_${targetResolution}.bin`,
     animation: 'Idle',
-    desktop: { x: 0.25, y: -2.4, z: 0, scale: 1.6, camZ: 3.7 },
-    mobile: { x: 0.1, y: -2.4, z: 0, scale: 1.5, camZ: 3.7 },
+    desktop: { x: 0, y: -2, z: 0, scale: 1.8, camZ: 3.9 },
+    mobile: { x: 0, y: -2, z: 0, scale: 1.6, camZ: 3.9 },
   },
   {
     name: 'Ydde',
     gltfFile: '/models/Ydde3.glb',
     binFile: `/models/baked/Ydde_${targetResolution}.bin`,
     animation: 'Play_Guitar',
-    desktop: { x: 0.4, y: -0.85, z: 0, scale: 1.7, camZ: 3.7 },
-    mobile: { x: 0.1, y: -0.65, z: 0, scale: 1.25, camZ: 3 },
+    desktop: { x: 0, y: -0.6, z: 0, scale: 1.8, camZ: 3.9 },
+    mobile: { x: 0, y: -0.55, z: 0, scale: 1.35, camZ: 3.1 },
   },
 ]
 
@@ -142,8 +139,8 @@ export class ParticleSimulation {
   private scene = new THREE.Scene()
   private camera: THREE.PerspectiveCamera
   private renderer: THREE.WebGLRenderer
-  private groupGLTF = new THREE.Group()
-  private groupParticles = new THREE.Group()
+  public readonly groupGLTF = new THREE.Group()
+  public readonly groupParticles = new THREE.Group()
   private mixerGLTF: THREE.AnimationMixer | null = null
   private particleMesh: THREE.Points | null = null
   private gpuCompute: GPUComputationRenderer | null = null
@@ -159,8 +156,8 @@ export class ParticleSimulation {
   private targetRotationX = 0
   private targetRotationY = -(Math.PI / 8)
   private clock = new THREE.Clock()
-  private mm: gsap.MatchMedia | null = null
   private disposed = false
+  private isVisible = true
   private cleanupFns: Array<() => void> = []
 
   constructor(container: HTMLElement) {
@@ -210,7 +207,6 @@ export class ParticleSimulation {
 
       requestAnimationFrame(() => {
         if (this.disposed) return
-        this.initScrollAnimation(lightDirection)
         window.dispatchEvent(new Event('simulation-loaded'))
       })
     })
@@ -365,112 +361,19 @@ export class ParticleSimulation {
     this.groupParticles.add(this.particleMesh)
   }
 
-  private initScrollAnimation(lightDirection: THREE.Vector3) {
-    this.mm = gsap.matchMedia()
-    const activeScale = isMobile() ? config.mobile.scale : config.desktop.scale
-
-    this.mm.add(
-      {
-        isDesktop: '(min-width: 769px)',
-        isMobile: '(max-width: 768px)',
-      },
-      (context) => {
-        const { isDesktop } = context.conditions as { isDesktop: boolean; isMobile: boolean }
-
-        gsap.set('main', { position: 'relative' })
-
-        if (isDesktop) {
-          gsap.set('.content', { x: '0vw', opacity: 1 })
-          gsap.set('.ydde', { x: '0vw' })
-          gsap.set('.image-gradient', { x: '0vw' })
-          gsap.set('.content2', {
-            position: 'absolute',
-            right: '10%',
-            x: '100vw',
-            opacity: 0,
-            top: '50%',
-            yPercent: -50,
-            maxWidth: '40rem',
-            left: 'auto',
-            width: 'auto',
-            margin: '',
-          })
-        } else {
-          const c1 = document.querySelector('.content') as HTMLElement
-          gsap.set('.content', { x: '0vw', opacity: 1 })
-          gsap.set('.ydde', { x: '0vw' })
-          gsap.set('.image-gradient', { x: '0vw' })
-          gsap.set('.content2', {
-            position: 'absolute',
-            top: () => c1.offsetTop,
-            left: () => c1.offsetLeft,
-            width: () => c1.offsetWidth,
-            height: () => c1.offsetHeight,
-            margin: 0,
-            padding: 0,
-            x: '100vw',
-            opacity: 0,
-            yPercent: 0,
-            right: 'auto',
-            maxWidth: 'none',
-          })
-        }
-
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: 'main',
-            start: 'top top',
-            end: '+=2000',
-            scrub: 1,
-            pin: true,
-            anticipatePin: 1,
-            pinType: 'fixed',
-            fastScrollEnd: true,
-            invalidateOnRefresh: true,
-          },
-        })
-
-        tl.to(this.groupGLTF.rotation, { y: Math.PI, duration: 0.5, ease: 'power2.in' }, 0)
-          .to(this.groupGLTF.scale, { x: 0, y: 0, z: 0, duration: 0.5, ease: 'power2.in' }, 0)
-          .to(
-            this.groupParticles.scale,
-            { x: activeScale, y: activeScale, z: activeScale, duration: 0.5, ease: 'power2.out' },
-            0.5,
-          )
-          .fromTo(
-            this.groupParticles.rotation,
-            { y: -Math.PI },
-            { y: 0, duration: 0.5, ease: 'power2.out' },
-            0.5,
-          )
-
-        if (isDesktop) {
-          tl.to('.content', { x: '-50vw', opacity: 0, duration: 1, ease: 'power2.inOut' }, 0)
-            .to('.ydde', { x: '-50vw', duration: 1, ease: 'power2.inOut' }, 0)
-            .to('.image-gradient', { x: '-60vw', duration: 1, ease: 'power2.inOut' }, 0)
-            .to('.content2', { x: '0vw', opacity: 1, duration: 1, ease: 'power2.inOut' }, 0)
-        } else {
-          tl.to('.content', { x: '-100vw', opacity: 0, duration: 1, ease: 'power2.inOut' }, 0).to(
-            '.content2',
-            { x: '0', opacity: 1, duration: 1, ease: 'power2.inOut' },
-            0,
-          )
-        }
-
-        return () => gsap.set('main, .content, .content2, .ydde', { clearProps: 'all' })
-      },
-    )
-
-    const onWindowLoad = () => {
-      ScrollTrigger.refresh()
-    }
-    window.addEventListener('load', onWindowLoad)
-    this.cleanupFns.push(() => window.removeEventListener('load', onWindowLoad))
-
-    void lightDirection
+  get modelScale(): number {
+    return (isMobile() ? config.mobile : config.desktop).scale
   }
 
   private bindEvents() {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        this.isVisible = entries[0]?.isIntersecting ?? false
+      },
+      { threshold: 0.05 },
+    )
+    observer.observe(this.container)
+    this.cleanupFns.push(() => observer.disconnect())
     const onDeviceOrientation = (event: DeviceOrientationEvent) => {
       if (event.gamma !== null) {
         this.targetRotationY = event.gamma * (Math.PI / 180) * 0.5
@@ -501,12 +404,6 @@ export class ParticleSimulation {
       const pos = isMobile() ? config.mobile : config.desktop
       this.groupGLTF.position.set(pos.x, pos.y, pos.z)
       this.groupParticles.position.set(pos.x, pos.y, pos.z)
-
-      if (ScrollTrigger.getAll().length === 0) {
-        this.groupGLTF.scale.set(pos.scale, pos.scale, pos.scale)
-      }
-
-      ScrollTrigger.refresh()
     }
 
     window.addEventListener('deviceorientation', onDeviceOrientation)
@@ -531,6 +428,8 @@ export class ParticleSimulation {
   private animate() {
     if (this.disposed) return
     requestAnimationFrame(() => this.animate())
+    if (document.hidden) return
+    if (!this.isVisible) return
 
     const delta = this.clock.getDelta()
     const time = this.clock.getElapsedTime()
@@ -572,8 +471,6 @@ export class ParticleSimulation {
     this.disposed = true
     this.cleanupFns.forEach((fn) => fn())
     this.cleanupFns = []
-
-    if (this.mm) this.mm.revert()
 
     this.gpuCompute?.dispose()
     this.particleMesh?.geometry.dispose()

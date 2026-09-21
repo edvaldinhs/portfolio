@@ -17,9 +17,9 @@ export default function HeaderBar() {
     <header className="header-bar">
       <div className="logodiv">
         <img src="/img/ico.png" alt="Edinho" />
-        <h1 className="logo">
-          <span className="logotxt">Edvaldo Santos</span>
-        </h1>
+        <h3 className="logo">
+          <span className="logotxt">Edvaldo Henrique</span>
+        </h3>
       </div>
 
       <nav>

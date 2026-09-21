@@ -1,0 +1,111 @@
+.oldhero {
+    --oldhero-bg: #111111;
+    position: relative;
+    display: block;
+    height: 100vh;
+    min-height: 0;
+    margin: 40vh 0;
+    overflow: hidden;
+    background: var(--oldhero-bg);
+    box-shadow: 0 -40vh 0 var(--oldhero-bg), 0 40vh 0 var(--oldhero-bg);
+
+    .oldhero__scene {
+        position: fixed;
+        inset: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 8;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: none;
+    }
+
+    .oldhero__title {
+        position: absolute;
+        z-index: 6;
+        margin: 0;
+        display: grid;
+        pointer-events: none;
+        user-select: none;
+
+        .oldhero__label {
+            grid-area: 1 / 1;
+            margin: 0;
+            font: italic 500 clamp(10rem, 2rem + 10vw, 11rem) / 0.9 var(--font-display);
+            letter-spacing: 0.01em;
+            text-wrap: nowrap;
+        }
+    }
+
+    .oldhero__title--top {
+        top: 14%;
+        left: 40%;
+        transform: translateX(calc(-50% - 2vw));
+        text-align: center;
+    }
+
+    .oldhero__title--bottom {
+        top: 66%;
+        left: 60%;
+        transform: translateX(calc(-50% + 2vw));
+        z-index: 12;
+        text-align: center;
+    }
+
+    .oldhero__hint {
+        position: absolute;
+        top: 11%;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 10;
+        margin: 0;
+        padding: 0.45em 1.4em;
+        border-radius: 999px;
+        background-color: #212121;
+        font: 400 clamp(0.875rem, 0.5rem + 1vw, 1.25rem) / 1.4 var(--font-sans);
+        letter-spacing: 0.18em;
+        color: var(--cursor-color);
+        text-align: center;
+        pointer-events: none;
+        user-select: none;
+        white-space: nowrap;
+    }
+}
+
+[data-theme="pink"] .oldhero {
+    --oldhero-bg: #ffffff;
+}
+
+[data-theme="light"] .oldhero {
+    --oldhero-bg: #ece7e2;
+}
+
+[data-theme="pink"] .oldhero__hint {
+    background-color: #ffffff;
+}
+
+[data-theme="light"] .oldhero__hint {
+    background-color: #e4dfda;
+}
+
+@media (max-width: 768px) {
+    .oldhero {
+        .oldhero__hint {
+            top: 9%;
+            font-size: 0.8rem;
+        }
+
+        .oldhero__label {
+            font-size: clamp(2.75rem, 1rem + 11vw, 5rem);
+        }
+
+        .oldhero__title--top {
+            top: 24%;
+        }
+
+        .oldhero__title--bottom {
+            top: 38%;
+        }
+    }
+}

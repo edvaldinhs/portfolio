@@ -15,6 +15,7 @@ body {
     --button-content-hover-color: gray;
     --button-document: #5300a0;
     --box-shadow: rgba(255, 255, 255, 0.5);
+    --font-display: "Cardinal Classic Long", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
 }
 
 [data-theme="light"] {
@@ -28,6 +29,7 @@ body {
     --button-content-hover-color: gray;
     --button-document: #5300a0;
     --box-shadow: rgba(5, 5, 5, 0.5);
+    --font-display: "Cardinal Classic Long", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
 }
 
 [data-theme="pink"] {
@@ -41,6 +43,7 @@ body {
     --button-content-hover-color: #EF92A3;
     --button-document: #D84498;
     --box-shadow: rgba(5, 5, 5, 0.5);
+    --font-display: "Cardinal Classic Long", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
 }
 
 * {
@@ -99,7 +102,7 @@ body {
     cursor: none;
 }
 
-.hero {
+.hero-l {
     margin-top: 7rem;
     margin-bottom: 1.5rem;
 
@@ -116,6 +119,36 @@ body {
     .mb-sm {
         margin-bottom: 1rem;
     }
+}
+
+.eddy-hero {
+    position: relative;
+    height: 100vh;
+    padding: 0 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    .hero-l {
+        position: relative;
+        z-index: 7;
+        margin: 0;
+    }
+}
+
+.eddy-hero-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 170%;
+    z-index: 6;
+    opacity: 0;
+    pointer-events: none;
+}
+
+#canvas-eddyhero canvas {
+    display: block;
 }
 
 .line-divider {
@@ -155,10 +188,6 @@ body.hovering-link #custom-cursor {
     width: 36px;
     height: 36px;
     mix-blend-mode: difference;
-}
-
-[data-theme="red"] #custom-cursor {
-    mix-blend-mode: normal;
 }
 
 .theme-switcher {
@@ -219,7 +248,7 @@ body.hovering-link #custom-cursor {
 .container {
     width: 100%;
     margin: 0 0;
-    padding: 0 1rem;
+    padding: 0 0;
     position: relative;
     overflow: hidden;
     overflow-x: hidden;
@@ -251,10 +280,11 @@ header {
             width: auto;
         }
 
-        h1 {
+        h3 {
             margin: 0;
-            font-size: 2rem;
-            font-weight: 300;
+            font: 500 clamp(0.875rem, 0.5rem + 2vw, 2.25rem) / 1.2 var(--font-display);
+            font-style: italic;
+            text-wrap: balance;
             white-space: nowrap;
         }
     }
@@ -492,69 +522,6 @@ main {
     }
 }
 
-.projects {
-    margin-top: 20rem;
-
-    .projecth {
-        margin-left: 10%;
-        max-width: 40rem;
-    }
-
-    h1 {
-        font-size: 4rem;
-        font-weight: 600;
-        letter-spacing: 0.1rem;
-        margin: 2rem 0;
-        margin-top: 0;
-        line-height: 1.2;
-        text-shadow: 0 0 10px rgba(128, 128, 128, 0.418);
-    }
-
-    h2 {
-        font-size: 1.8rem;
-        font-weight: 600;
-        letter-spacing: 0.1rem;
-        margin: 2rem 0;
-        margin-top: 0;
-        line-height: 1.2;
-        text-shadow: 0 0 10px rgba(128, 128, 128, 0.418);
-        color: #a7a7a7;
-    }
-
-    .cards {
-        width: 100%;
-
-        .left-card {
-            width: fit-content;
-            margin-left: 10%;
-        }
-
-        .right-card {
-            display: flex;
-            justify-content: center;
-            width: 60%;
-            padding: 2rem;
-        }
-
-        .proj-card {
-            display: flex;
-            width: 100%;
-            margin-bottom: 4rem;
-
-            h3 {
-                white-space: nowrap;
-                font-size: 2rem;
-                font-weight: 600;
-                letter-spacing: 0.1rem;
-                margin: 2rem 0;
-                margin-top: 0;
-                line-height: 1.2;
-                text-shadow: 0 0 10px rgba(128, 128, 128, 0.418);
-            }
-        }
-    }
-}
-
 .LangAndTools {
     width: 100%;
     padding: 1.5em 0 1.5em 0;
@@ -572,19 +539,6 @@ main {
     to {
         background-position: 200%;
     }
-}
-
-.ydde {
-    width: 150vw;
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    z-index: 8 !important;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 #canvas-container canvas {
@@ -619,24 +573,19 @@ main {
         order: 2;
     }
 
-    .ydde {
-        position: relative;
-        width: 100%;
-        height: 60vh;
-        order: 1;
-        pointer-events: none;
-        margin: 0 auto;
-    }
-
     .buttons {
         justify-content: center;
     }
 }
 
 @media(max-width: 768px) {
-    .hero {
+    .hero-l {
         margin-top: 6rem;
         margin-bottom: 0;
+    }
+
+    .eddy-hero {
+        height: 70vh;
     }
 
     .theme-switcher {
@@ -694,14 +643,6 @@ main {
 
     #yde .right-card {
         order: 2;
-    }
-
-    .ydde {
-        height: 80vh;
-        width: 100%;
-        margin-top: -8rem;
-        left: 0;
-        right: 0;
     }
 
     .content {
@@ -764,28 +705,6 @@ main {
 
         .btn-text {
             left: 3rem;
-        }
-    }
-
-    .projects .cards .proj-card {
-        flex-direction: column;
-
-        .left-card {
-            margin-left: 5%;
-            margin-right: 5%;
-            width: 90%;
-            display: flex;
-            justify-content: center;
-        }
-
-        .right-card {
-            width: 90%;
-            padding: 1rem 0;
-            margin-left: 5%;
-
-            h3 {
-                white-space: normal;
-            }
         }
     }
 }

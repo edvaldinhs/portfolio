@@ -1,0 +1,134 @@
+.whatcanido {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.whatcanido__track {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+}
+
+.whatcanido__panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.whatcanido__panel--prev {
+    left: 0;
+}
+
+.whatcanido__panel--next {
+    left: 100vw;
+}
+
+.whatcanido-hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow-x: clip;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+
+    .whatcanido-canvas {
+        position: absolute;
+        right: 1%;
+        bottom: 0;
+        width: 20vw;
+        height: 30vh;
+        z-index: 3;
+
+        img,
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    .whatcanido-h1 {
+        position: absolute;
+        margin: 0;
+        font: italic 500 clamp(4rem, 1rem + 9vw, 11rem) / 0.9 var(--font-display);
+        letter-spacing: 0.01em;
+        text-wrap: nowrap;
+        z-index: 4;
+        pointer-events: none;
+        user-select: none;
+    }
+
+    .whatcanido-h1--is {
+        top: 22%;
+        left: 5%;
+    }
+
+    .whatcanido-h1--this {
+        top: 46%;
+        left: 12%;
+        transform: translateX(4vw);
+        z-index: 5;
+    }
+
+    .whatcanido-h1--me {
+        bottom: 20%;
+        left: 34%;
+        transform: translateX(-3vw);
+        z-index: 4;
+    }
+
+    .whatcanido-h4 {
+        position: absolute;
+        top: 90%;
+        left: 40%;
+        margin: 0;
+        font: 400 clamp(1.375rem, 0.75rem + 2vw, 2.5rem) / 1.2 var(--font-sans);
+        color: var(--cursor-color);
+        z-index: 3;
+        pointer-events: none;
+        user-select: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .whatcanido-hero {
+        .whatcanido-canvas {
+            right: 0;
+            bottom: 0;
+            width: 85vw;
+            height: 42vh;
+        }
+
+        .whatcanido-h1 {
+            top: auto;
+            bottom: auto;
+            transform: none;
+            font-size: clamp(3rem, 1rem + 14vw, 6rem);
+        }
+
+        .whatcanido-h1--is {
+            top: 4%;
+            left: 30%;
+        }
+
+        .whatcanido-h1--this {
+            top: 42%;
+            left: 10%;
+        }
+
+        .whatcanido-h1--me {
+            bottom: 44%;
+            left: 52%;
+        }
+
+        .whatcanido-h4 {
+            top: 49%;
+            left: 16%;
+            font-size: clamp(1.25rem, 0.75rem + 3vw, 2rem);
+        }
+    }
+}

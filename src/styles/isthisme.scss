@@ -1,0 +1,168 @@
+
+.isthisme {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow-x: clip;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+
+    .isthisme-canvas {
+        position: absolute;
+        left: 2.5%;
+        bottom: 0;
+        width: 20vw;
+        height: 30vh;
+        z-index: 3;
+
+        img,
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        video {
+            transform: scaleX(-1);
+        }
+    }
+
+    .isthisme-fig {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: calc((100% / 3) + 2.5rem);
+        height: 95vh;
+        z-index: 1;
+
+        .isthisme-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            background-color: var(--accent-color);
+        }
+
+        .isthisme-caption {
+            position: absolute;
+            right: 6%;
+            bottom: 5%;
+            max-width: 80%;
+            z-index: 2;
+            color: #fef3eb;
+            text-align: right;
+            text-shadow: 0 1px 12px rgba(0, 0, 0, 0.45);
+            pointer-events: none;
+            user-select: none;
+
+            .isthisme-caption__title {
+                margin: 0 0 0.35rem;
+                font: italic 500 clamp(1.125rem, 0.5rem + 1.6vw, 1.75rem) / 1.1
+                    var(--font-display);
+                letter-spacing: 0.04em;
+            }
+
+            .isthisme-caption__text {
+                margin: 0;
+                font: 400 clamp(0.8rem, 0.5rem + 0.9vw, 1.05rem) / 1.45 var(--font-sans);
+                opacity: 0.85;
+            }
+        }
+    }
+
+    .isthisme-h1 {
+        position: absolute;
+        margin: 0;
+        font: italic 500 clamp(4rem, 1rem + 9vw, 11rem) / 0.9 var(--font-display);
+        letter-spacing: 0.01em;
+        text-wrap: nowrap;
+        z-index: 4;
+        pointer-events: none;
+        user-select: none;
+    }
+
+    .isthisme-h1--is {
+        top: 22%;
+        left: 46%;
+    }
+
+    .isthisme-h1--this {
+        top: 46%;
+        left: 45%;
+        transform: translateX(4vw);
+        z-index: 5;
+    }
+
+    .isthisme-h1--me {
+        bottom: 20%;
+        left: 40%;
+        transform: translateX(-3vw);
+        z-index: 4;
+    }
+
+    .isthisme-h4 {
+        position: absolute;
+        bottom: 10%;
+        left: 55%;
+        margin: 0;
+        font: 400 clamp(1.375rem, 0.75rem + 2vw, 2.5rem) / 1.2 var(--font-sans);
+        color: var(--cursor-color);
+        z-index: 3;
+        pointer-events: none;
+        user-select: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .isthisme {
+        height: 100vh;
+        overflow-x: clip;
+
+        .isthisme-canvas {
+            left: 0;
+            bottom: 0;
+            width: 85vw;
+            height: 42vh;
+        }
+
+        .isthisme-fig {
+            right: 0;
+            top: 44%;
+            width: 62vw;
+            height: 46vh;
+
+            .isthisme-caption {
+                max-width: 100%;
+            }
+        }
+
+        .isthisme-h1 {
+            top: auto;
+            bottom: auto;
+            transform: none;
+            font-size: clamp(3rem, 1rem + 14vw, 6rem);
+        }
+
+        .isthisme-h1--is {
+            top: 4%;
+            left: 30%;
+        }
+
+        .isthisme-h1--this {
+            top: 42%;
+            left: 10%;
+        }
+
+        .isthisme-h1--me {
+            bottom: 44%;
+            left: 52%;
+        }
+
+        .isthisme-h4 {
+            top: 49%;
+            left: 16%;
+            font-size: clamp(1.25rem, 0.75rem + 3vw, 2rem);
+        }
+    }
+}
